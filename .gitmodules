@@ -1,0 +1,3 @@
+[submodule "dep/sss"]
+	path = dep/sss
+	url = git@github.com:Dwelui/SSS.git
