@@ -3,7 +3,8 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include "../../dep/sss/http_request.h"
 
-void default_controller_index(void);
+int default_controller_index(const HttpRequest *req);
 
 #endif // DEFAULT_CONTROLLER_H

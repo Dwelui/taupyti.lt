@@ -1,6 +1,8 @@
 #include "default_controller.h"
 
-void default_controller_index(void)
+int default_controller_index(const HttpRequest *req)
 {
     printf("DEFAULT CONTROLLER");
+
+    return 0;
 }
