@@ -4,7 +4,8 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "../../dep/sss/http_request.h"
+#include "../../dep/sss/http_response.h"
 
-int default_controller_index(const HttpRequest *req);
+int default_controller_index(const HttpRequest *req, HttpResponse *res);
 
 #endif // DEFAULT_CONTROLLER_H
