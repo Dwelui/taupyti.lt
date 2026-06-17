@@ -49,7 +49,6 @@ char *test_http_request_parse_version()
     return NULL;
 }
 
-// TODO: Register this
 char *test_http_request_parse_method()
 {
     char *input = file_read("tests/fixtures/http/valid_get_1.http");

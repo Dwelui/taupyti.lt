@@ -37,12 +37,12 @@ typedef struct {
 
 HttpRequest http_request_create(char *req_buf, size_t req_len);
 
+const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name);
+
 HttpMethod http_request_string_to_method(char *buf);
 char *http_request_method_to_string(HttpMethod method);
 
 HttpVersion http_request_string_to_version(char *buf);
 char *http_request_version_to_string(HttpVersion version);
-
-const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name);
 
 #endif // HTTP_REQUEST_H
