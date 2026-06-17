@@ -1,18 +1,36 @@
 #include "http_request.h"
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-HttpRequest http_request_create(char *req_buf, size_t req_len)
+const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 {
-    char method[8], path[1024], version[9];
-    int matched = sscanf(req_buf, "%7s %1023s %8s", method, path, version);
+    char method[8], url[1024], version[9];
+    int matched = sscanf(req_buf, "%7s %1023s %8s", method, url, version);
     assert(matched == 3);
 
-    HttpRequest request;
-    request.method = http_request_string_to_method(method);
-    request.version = http_request_string_to_version(version);
-    strcpy(request.path, path);
+    HttpRequest *request = malloc(sizeof(HttpRequest));
+    request->method = http_request_string_to_method(method);
+    request->version = http_request_string_to_version(version);
+
+    int query_start = 0;
+    for (int i = 0; i < strlen(url); i++) {
+        if (url[i] == '?') {
+            query_start = i;
+            break;
+        }
+    }
+
+    char query[1024] = { 0 };
+    if (query_start == 0) {
+        strcpy(request->path, url);
+    } else {
+        strncpy(request->path, url, query_start);
+        strncpy(query, url + query_start + 1, strlen(url) - query_start);
+    }
+
+    printf("url = %s path = %s query_start = %d query = %s\n", url, request->path, query_start, query);
 
     return request;
 }

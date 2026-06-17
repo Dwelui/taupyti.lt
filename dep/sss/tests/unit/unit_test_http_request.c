@@ -32,18 +32,10 @@ char *test_http_request_parse_version()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
-    HttpRequest request = http_request_create(input, sizeof(input));
+    const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (request.version != HTTP_VERSION_1_1) {
+    if (request->version != HTTP_VERSION_1_1) {
         return "request version does not match";
-    }
-
-    if (request.method != HTTP_METHOD_GET) {
-        return "request method does not match";
-    }
-
-    if (strcmp(request.path, "/") != 0) {
-        return "request path does not match";
     }
 
     return NULL;
@@ -53,9 +45,9 @@ char *test_http_request_parse_method()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
-    HttpRequest request = http_request_create(input, sizeof(input));
+    const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (request.method != HTTP_METHOD_GET) {
+    if (request->method != HTTP_METHOD_GET) {
         return "request method does not match";
     }
 
@@ -66,9 +58,9 @@ char *test_http_request_parse_path()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_2.http");
 
-    HttpRequest request = http_request_create(input, sizeof(input));
+    const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (strcmp(request.path, "/a/very/long/request/path/index.html") != 0) {
+    if (strcmp(request->path, "/a/very/long/request/path/index.html") != 0) {
         return "request path does not match";
     }
 
@@ -79,9 +71,9 @@ char *test_http_request_parse_path_2()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
-    HttpRequest request = http_request_create(input, sizeof(input));
+    const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (strcmp(request.path, "/") != 0) {
+    if (strcmp(request->path, "/") != 0) {
         return "request path does not match";
     }
 
@@ -92,24 +84,24 @@ char *test_http_request_parse_query_parameters()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
-    HttpRequest request = http_request_create(input, sizeof(input));
+    const HttpRequest *request = http_request_create(input, sizeof(input));
 
     const HttpQueryParameter *query_parameter;
-    query_parameter = http_request_find_query_parameter_by_name(&request, "product_name");
+    query_parameter = http_request_find_query_parameter_by_name(request, "product_name");
     if (query_parameter == NULL) {
         return "request query parameter 'product_name' not found";
     } else if (strcmp(query_parameter->value, "milk") != 0) {
         return "request query parameter 'product_name' does not match 'milk'";
     }
 
-    query_parameter = http_request_find_query_parameter_by_name(&request, "product_price");
+    query_parameter = http_request_find_query_parameter_by_name(request, "product_price");
     if (query_parameter == NULL) {
         return "request query parameter 'product_name' not found";
     } else if (strcmp(query_parameter->value, "1.70") != 0) {
         return "request query parameter 'product_price' does not match '1.70'";
     }
 
-    query_parameter = http_request_find_query_parameter_by_name(&request, "product_count");
+    query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
     if (query_parameter == NULL) {
         return "request query parameter 'product_name' not found";
     } else if (strcmp(query_parameter->value, "2") != 0) {

@@ -35,7 +35,8 @@ typedef struct {
     char path[1024];
 } HttpRequest;
 
-HttpRequest http_request_create(char *req_buf, size_t req_len);
+const HttpRequest *http_request_create(char *req_buf, size_t req_len);
+void http_request_free(HttpRequest *req); // TODO: implement
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name);
 
