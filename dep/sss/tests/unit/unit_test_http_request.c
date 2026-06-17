@@ -30,7 +30,7 @@ char *file_read(const char *path)
 
 char *test_http_request_parse_version()
 {
-    char *input = file_read("tests/fixtures/http/valid_get_1.http");
+    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
 
@@ -51,7 +51,7 @@ char *test_http_request_parse_version()
 
 char *test_http_request_parse_method()
 {
-    char *input = file_read("tests/fixtures/http/valid_get_1.http");
+    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
 
@@ -64,7 +64,7 @@ char *test_http_request_parse_method()
 
 char *test_http_request_parse_path()
 {
-    char *input = file_read("tests/fixtures/http/valid_get_2.http");
+    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_2.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
 
@@ -77,24 +77,30 @@ char *test_http_request_parse_path()
 
 char *test_http_request_parse_query_parameters()
 {
-    char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
+    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
 
     const HttpQueryParameter *query_parameter;
     query_parameter = http_request_find_query_parameter_by_name(&request, "product_name");
-    if (strcmp(query_parameter->value, "milk") != 0) {
-        return "request query_parameter 'product_name' does not match 'milk'";
+    if (query_parameter == NULL) {
+        return "request query parameter 'product_name' not found";
+    } else if (strcmp(query_parameter->value, "milk") != 0) {
+        return "request query parameter 'product_name' does not match 'milk'";
     }
 
     query_parameter = http_request_find_query_parameter_by_name(&request, "product_price");
-    if (strcmp(query_parameter->value, "1.70") != 0) {
-        return "request query_parameter 'product_price' does not match '1.70'";
+    if (query_parameter == NULL) {
+        return "request query parameter 'product_name' not found";
+    } else if (strcmp(query_parameter->value, "1.70") != 0) {
+        return "request query parameter 'product_price' does not match '1.70'";
     }
 
     query_parameter = http_request_find_query_parameter_by_name(&request, "product_count");
-    if (strcmp(query_parameter->value, "2") != 0) {
-        return "request query_parameter 'product_count' does not match '2'";
+    if (query_parameter == NULL) {
+        return "request query parameter 'product_name' not found";
+    } else if (strcmp(query_parameter->value, "2") != 0) {
+        return "request query parameter 'product_count' does not match '2'";
     }
 
     return NULL;
