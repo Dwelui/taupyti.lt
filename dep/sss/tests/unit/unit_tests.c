@@ -7,6 +7,7 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_http_request_parse_version),
     TEST_CASE_REGISTER(test_http_request_parse_method),
     TEST_CASE_REGISTER(test_http_request_parse_path),
+    TEST_CASE_REGISTER(test_http_request_parse_path_2),
     TEST_CASE_REGISTER(test_http_request_parse_query_parameters),
 };
 

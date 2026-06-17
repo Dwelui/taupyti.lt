@@ -75,6 +75,19 @@ char *test_http_request_parse_path()
     return NULL;
 }
 
+char *test_http_request_parse_path_2()
+{
+    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
+
+    HttpRequest request = http_request_create(input, sizeof(input));
+
+    if (strcmp(request.path, "/") != 0) {
+        return "request path does not match";
+    }
+
+    return NULL;
+}
+
 char *test_http_request_parse_query_parameters()
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
