@@ -28,7 +28,7 @@ char *file_read(const char *path)
     return buf;
 }
 
-char *test_http_request_create_parse_request_line_1()
+char *test_http_request_parse_version()
 {
     char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
@@ -49,19 +49,25 @@ char *test_http_request_create_parse_request_line_1()
     return NULL;
 }
 
-char *test_http_request_create_parse_request_line_2()
+// TODO: Register this
+char *test_http_request_parse_method()
 {
-    char *input = file_read("tests/fixtures/http/valid_get_2.http");
+    char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
-
-    if (request.version != HTTP_VERSION_1_1) {
-        return "request version does not match";
-    }
 
     if (request.method != HTTP_METHOD_GET) {
         return "request method does not match";
     }
+
+    return NULL;
+}
+
+char *test_http_request_parse_path()
+{
+    char *input = file_read("tests/fixtures/http/valid_get_2.http");
+
+    HttpRequest request = http_request_create(input, sizeof(input));
 
     if (strcmp(request.path, "/a/very/long/request/path/index.html") != 0) {
         return "request path does not match";
@@ -70,22 +76,26 @@ char *test_http_request_create_parse_request_line_2()
     return NULL;
 }
 
-char *test_http_request_create_parse_request_line_3()
+char *test_http_request_parse_query_parameters()
 {
     char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
 
     HttpRequest request = http_request_create(input, sizeof(input));
 
-    if (request.version != HTTP_VERSION_1_1) {
-        return "request version does not match";
+    const HttpQueryParameter *query_parameter;
+    query_parameter = http_request_find_query_parameter_by_name(&request, "product_name");
+    if (strcmp(query_parameter->value, "milk") != 0) {
+        return "request query_parameter 'product_name' does not match 'milk'";
     }
 
-    if (request.method != HTTP_METHOD_GET) {
-        return "request method does not match";
+    query_parameter = http_request_find_query_parameter_by_name(&request, "product_price");
+    if (strcmp(query_parameter->value, "1.70") != 0) {
+        return "request query_parameter 'product_price' does not match '1.70'";
     }
 
-    if (strcmp(request.path, "/") != 0) {
-        return "request path does not match";
+    query_parameter = http_request_find_query_parameter_by_name(&request, "product_count");
+    if (strcmp(query_parameter->value, "2") != 0) {
+        return "request query_parameter 'product_count' does not match '2'";
     }
 
     return NULL;

@@ -1,4 +1,4 @@
-GET /?product_name=Pienas&product_price=1.70&product_count=2 HTTP/1.1
+GET /?product_name=milk&product_price=1.70&product_count=2 HTTP/1.1
 Host: localhost:3490
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:151.0) Gecko/20100101 Firefox/151.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8

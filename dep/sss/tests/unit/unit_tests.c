@@ -4,9 +4,10 @@
 #include <stdio.h>
 
 TestCase unit_tests[] = {
-    TEST_CASE_REGISTER(test_http_request_create_parse_request_line_1),
-    TEST_CASE_REGISTER(test_http_request_create_parse_request_line_2),
-    TEST_CASE_REGISTER(test_http_request_create_parse_request_line_3),
+    TEST_CASE_REGISTER(test_http_request_parse_version),
+    TEST_CASE_REGISTER(test_http_request_parse_method),
+    TEST_CASE_REGISTER(test_http_request_parse_path),
+    TEST_CASE_REGISTER(test_http_request_parse_query_parameters),
 };
 
 int run_unit_tests()

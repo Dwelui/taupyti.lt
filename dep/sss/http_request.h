@@ -1,7 +1,6 @@
 #ifndef HTTP_REQUEST_H
 #define HTTP_REQUEST_H
 
-#include <cstddef>
 #include <curses.h>
 
 typedef enum {
