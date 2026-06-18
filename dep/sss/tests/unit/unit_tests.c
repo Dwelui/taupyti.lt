@@ -11,6 +11,10 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_http_request_parse_query_parameters),
 };
 
+// INFO: Might want to pass "char **output" to tests
+// - Each test check fail concats to the output that is returned
+// - Ouput is formatted and displayed and cleared for other test case.
+// - Small utility functions for checking and formating output messages using templates
 int run_unit_tests()
 {
     int status = 0;
