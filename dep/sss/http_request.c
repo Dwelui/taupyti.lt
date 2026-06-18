@@ -70,7 +70,6 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name)
 {
-    printf("parameters count = %zu\n", req->parameters.count);
     for (int i = 0; i < req->parameters.count; i++) {
         if (strcmp(req->parameters.items[i].key, name) == 0) {
             return &req->parameters.items[i];
