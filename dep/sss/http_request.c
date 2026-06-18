@@ -1,5 +1,6 @@
 #include "http_request.h"
 #include <assert.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -27,10 +28,52 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
         strcpy(request->path, url);
     } else {
         strncpy(request->path, url, query_start);
+        request->path[query_start] = '\0';
         strncpy(query, url + query_start + 1, strlen(url) - query_start);
+        query[strlen(url) - query_start] = '\0';
     }
 
     printf("url = %s path = %s query_start = %d query = %s\n", url, request->path, query_start, query);
+
+    int parameter_index = 0, y = 0;
+    bool is_reading_key = true;
+    for (int i = 0; i < strlen(query); i++) {
+        if (is_reading_key) {
+            request->parameters.items[parameter_index].key[y] = query[i];
+        } else {
+            request->parameters.items[parameter_index].value[y] = query[i];
+        }
+        y++;
+
+        if (query[i + 1] == '=') {
+            request->parameters.items[parameter_index].key[y] = '\0';
+            y = 0;
+
+            is_reading_key = false;
+            i++;
+            continue;
+        }
+
+        if (query[i + 1] == '&' || query[i + 1] == '\0') {
+            request->parameters.items[parameter_index].value[y] = '\0';
+            y = 0;
+
+            parameter_index++;
+
+            is_reading_key = true;
+            i++;
+            continue;
+        }
+    }
+    request->parameters.count = parameter_index;
+
+    for (int i = 0; i < parameter_index; i++) {
+        printf(
+            "key = %s value = %s\n",
+            request->parameters.items[i].key,
+            request->parameters.items[i].value
+        );
+    }
 
     return request;
 }
