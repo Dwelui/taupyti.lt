@@ -35,9 +35,7 @@ void test_http_request_parse_version(TestCaseOutput *output)
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (request->version != HTTP_VERSION_1_1) {
-        test_fail(output, "request version does not match");
-    }
+    test_int_is_equal(output, HTTP_VERSION_1_1, request->version);
 }
 
 void test_http_request_parse_method(TestCaseOutput *output)
@@ -46,9 +44,7 @@ void test_http_request_parse_method(TestCaseOutput *output)
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
-    if (request->method != HTTP_METHOD_GET) {
-        test_fail(output, "request method does not match");
-    }
+    test_int_is_equal(output, HTTP_METHOD_GET, request->method);
 }
 
 void test_http_request_parse_path(TestCaseOutput *output)
@@ -77,20 +73,14 @@ void test_http_request_parse_query_parameters(TestCaseOutput *output)
 
     const HttpQueryParameter *query_parameter;
     query_parameter = http_request_find_query_parameter_by_name(request, "product_name");
-    if (test_is_null(output, query_parameter, "'product_name' not found")) {
-        return;
-    }
+    if (test_is_null(output, query_parameter, "'product_name' not found")) return;
     test_string_is_equal(output, "milk", query_parameter->value);
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_price");
-    if (test_is_null(output, query_parameter, "'product_price' not found")) {
-        return;
-    }
+    if (test_is_null(output, query_parameter, "'product_price' not found")) return;
     test_string_is_equal(output, "1.70", query_parameter->value);
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
-    if (test_is_null(output, query_parameter, "'product_count' not found")) {
-        return;
-    }
+    if (test_is_null(output, query_parameter, "'product_count' not found")) return;
     test_string_is_equal(output, "2", query_parameter->value);
 }
