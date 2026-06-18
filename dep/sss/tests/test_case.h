@@ -3,9 +3,16 @@
 
 #define TEST_CASE_REGISTER(fn) { #fn, fn }
 
+#include <stddef.h>
+
+typedef struct {
+    char messages[32][64];
+    size_t count;
+} TestCaseOutput;
+
 typedef struct {
     const char *name;
-    char *(*fn)(void);
+    void (*fn)(TestCaseOutput *output);
 } TestCase;
 
 #endif // TEST_CASE_H

@@ -29,61 +29,56 @@ char *file_read(const char *path)
     return buf;
 }
 
-char *test_http_request_parse_version()
+void test_http_request_parse_version(TestCaseOutput *output)
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
     if (request->version != HTTP_VERSION_1_1) {
-        return "request version does not match";
+        sprintf(output->messages[output->count], "request version does not match");
+        output->count++;
     }
-
-    return NULL;
 }
 
-char *test_http_request_parse_method()
+void test_http_request_parse_method(TestCaseOutput *output)
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
     if (request->method != HTTP_METHOD_GET) {
-        return "request method does not match";
+        sprintf(output->messages[output->count], "request method does not match");
+        output->count++;
     }
-
-    return NULL;
 }
 
-char *test_http_request_parse_path()
+void test_http_request_parse_path(TestCaseOutput *output)
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_2.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
     if (strcmp(request->path, "/a/very/long/request/path/index.html") != 0) {
-        return "request path does not match";
+        sprintf(output->messages[output->count], "request path does not match");
+        output->count++;
     }
-
-    return NULL;
 }
 
-char *test_http_request_parse_path_2()
+void test_http_request_parse_path_2(TestCaseOutput *output)
 {
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
     if (strcmp(request->path, "/") != 0) {
-        return "request path does not match";
+        sprintf(output->messages[output->count], "request path does not match");
+        output->count++;
     }
-
-    return NULL;
 }
 
-char *test_http_request_parse_query_parameters()
+void test_http_request_parse_query_parameters(TestCaseOutput *output)
 {
-    char *output;
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
@@ -91,27 +86,28 @@ char *test_http_request_parse_query_parameters()
     const HttpQueryParameter *query_parameter;
     query_parameter = http_request_find_query_parameter_by_name(request, "product_name");
     if (query_parameter == NULL) {
-        return "request query parameter 'product_name' not found";
+        sprintf(output->messages[output->count], "request query parameter 'product_name' not found");
+        output->count++;
     } else if (strcmp(query_parameter->value, "milk") != 0) {
-        sprintf(output, "request query parameter 'product_name' expected 'milk' got '%s'\n", query_parameter->value);
-        return output;
+        sprintf(output->messages[output->count], "request query parameter 'product_name' expected 'milk' got '%s'", query_parameter->value);
+        output->count++;
     }
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_price");
     if (query_parameter == NULL) {
-        return "request query parameter 'product_price' not found";
+        sprintf(output->messages[output->count], "request query parameter 'product_price' not found");
+        output->count++;
     } else if (strcmp(query_parameter->value, "1.70") != 0) {
-        sprintf(output, "request query parameter 'product_price' expected '1.70' got '%s'", query_parameter->value);
-        return output;
+        sprintf(output->messages[output->count], "request query parameter 'product_price' expected '1.70' got '%s'", query_parameter->value);
+        output->count++;
     }
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
     if (query_parameter == NULL) {
-        return "request query parameter 'product_count' not found";
+        sprintf(output->messages[output->count], "request query parameter 'product_count' not found");
+        output->count++;
     } else if (strcmp(query_parameter->value, "2") != 0) {
-        sprintf(output, "request query parameter 'product_count' expected '2' got '%s'", query_parameter->value);
-        return output;
+        sprintf(output->messages[output->count], "request query parameter 'product_count' expected '2' got '%s'", query_parameter->value);
+        output->count++;
     }
-
-    return NULL;
 }
