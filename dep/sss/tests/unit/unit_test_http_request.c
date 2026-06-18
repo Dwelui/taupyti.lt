@@ -1,4 +1,5 @@
 #include "unit_test_http_request.h"
+#include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -82,6 +83,7 @@ char *test_http_request_parse_path_2()
 
 char *test_http_request_parse_query_parameters()
 {
+    char *output;
     char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
@@ -91,21 +93,24 @@ char *test_http_request_parse_query_parameters()
     if (query_parameter == NULL) {
         return "request query parameter 'product_name' not found";
     } else if (strcmp(query_parameter->value, "milk") != 0) {
-        return "request query parameter 'product_name' does not match 'milk'";
+        sprintf(output, "request query parameter 'product_name' expected 'milk' got '%s'\n", query_parameter->value);
+        return output;
     }
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_price");
     if (query_parameter == NULL) {
-        return "request query parameter 'product_name' not found";
+        return "request query parameter 'product_price' not found";
     } else if (strcmp(query_parameter->value, "1.70") != 0) {
-        return "request query parameter 'product_price' does not match '1.70'";
+        sprintf(output, "request query parameter 'product_price' expected '1.70' got '%s'", query_parameter->value);
+        return output;
     }
 
     query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
     if (query_parameter == NULL) {
-        return "request query parameter 'product_name' not found";
+        return "request query parameter 'product_count' not found";
     } else if (strcmp(query_parameter->value, "2") != 0) {
-        return "request query parameter 'product_count' does not match '2'";
+        sprintf(output, "request query parameter 'product_count' expected '2' got '%s'", query_parameter->value);
+        return output;
     }
 
     return NULL;

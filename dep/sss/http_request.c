@@ -33,8 +33,6 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
         query[strlen(url) - query_start] = '\0';
     }
 
-    printf("url = %s path = %s query_start = %d query = %s\n", url, request->path, query_start, query);
-
     int parameter_index = 0, y = 0;
     bool is_reading_key = true;
     for (int i = 0; i < strlen(query); i++) {
@@ -67,19 +65,18 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
     }
     request->parameters.count = parameter_index;
 
-    for (int i = 0; i < parameter_index; i++) {
-        printf(
-            "key = %s value = %s\n",
-            request->parameters.items[i].key,
-            request->parameters.items[i].value
-        );
-    }
-
     return request;
 }
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name)
 {
+    printf("parameters count = %zu\n", req->parameters.count);
+    for (int i = 0; i < req->parameters.count; i++) {
+        if (strcmp(req->parameters.items[i].key, name) == 0) {
+            return &req->parameters.items[i];
+        }
+    }
+
     return NULL;
 }
 
