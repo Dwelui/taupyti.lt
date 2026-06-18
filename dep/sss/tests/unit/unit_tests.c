@@ -36,6 +36,7 @@ int run_unit_tests()
         }
 
         memset(output, 0, sizeof(&output));
+        output->count = 0;
     }
 
     return status;
