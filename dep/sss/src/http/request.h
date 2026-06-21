@@ -1,5 +1,5 @@
-#ifndef HTTP_REQUEST_H
-#define HTTP_REQUEST_H
+#ifndef REQUEST_H
+#define REQUEST_H
 
 #include <curses.h>
 
@@ -46,4 +46,4 @@ char *http_request_method_to_string(HttpMethod method);
 HttpVersion http_request_string_to_version(char *buf);
 char *http_request_version_to_string(HttpVersion version);
 
-#endif // HTTP_REQUEST_H
+#endif // REQUEST_H

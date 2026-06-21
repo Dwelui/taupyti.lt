@@ -1,10 +1,11 @@
-#include "unit_test_http_request.h"
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "../../http_request.h"
+
+#include "test_request.h"
+#include "../../../src/http/request.h"
 
 char *file_read(const char *path)
 {
