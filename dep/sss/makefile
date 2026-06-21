@@ -20,3 +20,6 @@ build/test_case.o: tests/test_case.c | build
 
 tests: build/tests.o build/test_case.o build/unit_tests.o build/test_request.o build/http.o
 	@gcc $^ -o build/tests
+
+test: tests
+	@./build/tests
