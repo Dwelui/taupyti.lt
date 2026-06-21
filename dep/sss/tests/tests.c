@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "unit/unit_tests.h"
 
 int main()
