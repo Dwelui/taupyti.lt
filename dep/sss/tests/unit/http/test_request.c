@@ -32,7 +32,7 @@ char *file_read(const char *path)
 
 void test_http_request_parse_version(TestCaseOutput *output)
 {
-    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
+    char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
@@ -41,7 +41,7 @@ void test_http_request_parse_version(TestCaseOutput *output)
 
 void test_http_request_parse_method(TestCaseOutput *output)
 {
-    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_1.http");
+    char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
@@ -50,7 +50,7 @@ void test_http_request_parse_method(TestCaseOutput *output)
 
 void test_http_request_parse_path(TestCaseOutput *output)
 {
-    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_2.http");
+    char *input = file_read("tests/fixtures/http/valid_get_2.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
@@ -59,7 +59,7 @@ void test_http_request_parse_path(TestCaseOutput *output)
 
 void test_http_request_parse_path_2(TestCaseOutput *output)
 {
-    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
+    char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
@@ -68,7 +68,7 @@ void test_http_request_parse_path_2(TestCaseOutput *output)
 
 void test_http_request_parse_query_parameters(TestCaseOutput *output)
 {
-    char *input = file_read("dep/sss/tests/fixtures/http/valid_get_queries_1.http");
+    char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
 
     const HttpRequest *request = http_request_create(input, sizeof(input));
 
