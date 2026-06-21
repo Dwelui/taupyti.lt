@@ -1,10 +1,8 @@
 #ifndef DEFAULT_CONTROLLER_H
 #define DEFAULT_CONTROLLER_H
 
-#include <stddef.h>
-#include <stdio.h>
-#include "../../dep/sss/http_request.h"
-#include "../../dep/sss/http_response.h"
+#include "../../dep/sss/src/http/request.h"
+#include "../../dep/sss/src/http/response.h"
 
 int default_controller_index(const HttpRequest *req, HttpResponse *res);
 

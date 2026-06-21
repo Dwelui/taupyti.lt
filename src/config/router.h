@@ -1,9 +1,8 @@
 #ifndef ROUTER_H
 #define ROUTER_H
 
-#include <string.h>
-#include "../../dep/sss/http_request.h"
-#include "../../dep/sss/http_response.h"
+#include "../../dep/sss/src/http/request.h"
+#include "../../dep/sss/src/http/response.h"
 
 int route(const HttpRequest *req, HttpResponse *res);
 

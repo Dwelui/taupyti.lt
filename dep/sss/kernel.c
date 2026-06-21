@@ -7,9 +7,10 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <fcntl.h>
-#include "http_request.h"
+
+#include "src/http/request.h"
+#include "src/http/response.h"
 #include "../../src/config/router.h"
-#include "http_response.h"
 
 #define PORT "3490" // the port server is listening to
 #define BACKLOG 10 // how many pending connections queue holds
@@ -47,7 +48,7 @@ void print_formatted_request_line(const HttpRequest *req, const struct addrinfo 
     );
 }
 
-int main(void)
+int boot(void)
 {
     char root_dir[1024];
     if (get_root_dir(root_dir, sizeof(root_dir)) != -1) {
@@ -122,13 +123,13 @@ int main(void)
             printf("recv: connection closed");
         }
 
-        HttpRequest request = http_request_create(req_msg, sizeof(req_msg));
-        print_formatted_request_line(&request, &req_addr);
+        const HttpRequest *request = http_request_create(req_msg, sizeof(req_msg));
+        print_formatted_request_line(request, &req_addr);
 
         HttpResponse response;
-        status = route(&request, &response);
+        status = route(request, &response);
         if (status < 0) {
-            fprintf(stderr, "route: %s with error code: %d\n", request.path, status);
+            fprintf(stderr, "route: %s with error code: %d\n", request->path, status);
             exit(EXIT_FAILURE);
         }
 
