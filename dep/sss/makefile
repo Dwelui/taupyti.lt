@@ -1,17 +1,22 @@
+CFLAGS = -Wall -Wextra -g
+
 http.o: src/http/request.c
-	gcc -c src/http/request.c -o http.o
+	gcc $(CFLAGS) -c src/http/request.c -o build/http.o
 
 unit_tests.o: tests/unit/unit_tests.c
-	gcc -c tests/unit/unit_tests.c -o unit_tests.o
+	gcc $(CFLAGS) -c tests/unit/unit_tests.c -o build/unit_tests.o
 
 test_request.o: tests/unit/http/test_request.c
-	gcc -c tests/unit/http/test_request.c -o test_request.o
+	gcc $(CFLAGS) -c tests/unit/http/test_request.c -o build/test_request.o
 
 tests.o: tests/tests.c
-	gcc -c tests/tests.c -o tests.o
+	gcc $(CFLAGS) -c tests/tests.c -o build/tests.o
 
 test_case.o: tests/test_case.c
-	gcc -c tests/test_case.c -o test_case.o
+	gcc $(CFLAGS) -c tests/test_case.c -o build/test_case.o
 
-tests: tests.o test_case.o unit_tests.o test_request.o http.o
-	gcc tests.o test_case.o unit_tests.o test_request.o http.o -o tests_final
+build:
+	mkdir -p build
+
+tests: tests.o test_case.o unit_tests.o test_request.o http.o build
+	gcc build/tests.o build/test_case.o build/unit_tests.o build/test_request.o build/http.o -o build/tests
