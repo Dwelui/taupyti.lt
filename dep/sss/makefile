@@ -6,6 +6,15 @@ build:
 build/http.o: src/http/request.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
+build/kernel.o: kernel.c | build
+	gcc $(CFLAGS) -c $< -o $@
+
+build/libsss.a: build/http.o build/kernel.o | build
+	@ar rcs $@ $^
+
+all: build/libsss.a
+
+##### Tests #####
 build/unit_tests.o: tests/unit/unit_tests.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
