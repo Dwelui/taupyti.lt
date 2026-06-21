@@ -31,6 +31,8 @@ ssize_t get_root_dir(char* buf, size_t len)
         }
     }
 
+    last_slash_position -= 5; // to remove 'build' directory
+
     buf[last_slash_position] = '\0';
 
     return (ssize_t)last_slash_position;
