@@ -10,7 +10,7 @@ typedef struct {
 } Route;
 
 typedef struct {
-    Route items[32];
+    Route *items;
     size_t count;
 } Routes;
 

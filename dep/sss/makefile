@@ -6,10 +6,13 @@ build:
 build/http.o: src/http/request.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
+build/route.o: src/route.c | build
+	gcc $(CFLAGS) -c $< -o $@
+
 build/kernel.o: kernel.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
-build/libsss.a: build/http.o build/kernel.o | build
+build/libsss.a: build/http.o build/route.o build/kernel.o | build
 	@ar rcs $@ $^
 
 all: build/libsss.a
