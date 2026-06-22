@@ -8,9 +8,9 @@
 #include <netdb.h>
 #include <fcntl.h>
 
+#include "kernel.h"
 #include "src/http/request.h"
 #include "src/http/response.h"
-#include "../../src/config/router.h"
 
 #define PORT "3490" // the port server is listening to
 #define BACKLOG 10 // how many pending connections queue holds
@@ -50,7 +50,7 @@ void print_formatted_request_line(const HttpRequest *req, const struct addrinfo 
     );
 }
 
-int boot(void)
+int boot(const Routes *routes)
 {
     char root_dir[1024];
     if (get_root_dir(root_dir, sizeof(root_dir)) != -1) {
@@ -128,15 +128,15 @@ int boot(void)
         const HttpRequest *request = http_request_create(req_msg, sizeof(req_msg));
         print_formatted_request_line(request, &req_addr);
 
-        HttpResponse response;
-        status = route(request, &response);
+        HttpResponse *response = malloc(sizeof(HttpResponse));
+        status = route_request(routes, request, response);
         if (status < 0) {
             fprintf(stderr, "route: %s with error code: %d\n", request->path, status);
             exit(EXIT_FAILURE);
         }
 
         char file_path[1024];
-        len = snprintf(file_path, sizeof(file_path), "%s/%s", templates_dir, response.template_path);
+        len = snprintf(file_path, sizeof(file_path), "%s/%s", templates_dir, response->template_path);
         file_path[len] = '\0';
         printf("File path: %s\n", file_path);
 
