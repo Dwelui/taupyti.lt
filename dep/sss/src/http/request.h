@@ -33,6 +33,7 @@ typedef struct {
     HttpMethod method;
     HttpQueryParameters parameters;
     char path[1024];
+    char url[1024];
 } HttpRequest;
 
 const HttpRequest *http_request_create(char *req_buf, size_t req_len);

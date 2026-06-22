@@ -44,7 +44,7 @@ void print_formatted_request_line(const HttpRequest *req, const struct addrinfo 
         "[%s] %s %s %s %s\n",
         "2026-06-15 18:54:35",
         http_request_method_to_string(req->method),
-        req->path,
+        req->url,
         http_request_version_to_string(req->version),
         "<ip address>"// req_addr.ai_addr->sa_data
     );

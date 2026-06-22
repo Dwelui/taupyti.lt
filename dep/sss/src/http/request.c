@@ -12,6 +12,7 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
     assert(matched == 3);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
+    strncpy(request->url, url, strlen(url));
     request->method = http_request_string_to_method(method);
     request->version = http_request_string_to_version(version);
 
