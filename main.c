@@ -6,7 +6,7 @@
 int main()
 {
     Route route_items[] = {
-        { .path = "/", .fn = default_controller_index},
+        { .path = "/", .handler = default_controller_index},
     };
 
     Routes *routes = malloc(sizeof(Routes));

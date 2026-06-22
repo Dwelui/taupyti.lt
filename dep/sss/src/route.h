@@ -4,9 +4,11 @@
 #include "http/request.h"
 #include "http/response.h"
 
+typedef int (*RouteHandler)(const HttpRequest *req, HttpResponse *res);
+
 typedef struct {
     char path[1024];
-    int (*fn)(const HttpRequest *req, HttpResponse *res);
+    RouteHandler handler;
 } Route;
 
 typedef struct {
