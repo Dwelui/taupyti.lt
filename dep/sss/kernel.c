@@ -138,7 +138,6 @@ int boot(const Routes *routes)
         char file_path[1024];
         len = snprintf(file_path, sizeof(file_path), "%s/%s", templates_dir, response->template_path);
         file_path[len] = '\0';
-        printf("File path: %s\n", file_path);
 
         int file_fd = open(file_path, O_RDONLY);
         if (file_fd == -1) {
