@@ -8,24 +8,77 @@
 </head>
 
 <body>
-    <form id="product" autocomplete="on">
-        <label>
-            Name
-            <input type="text" name="product_name" placeholder="Milk">
-        </label>
+    <form>
+        <h1>Product</h1>
+        <p class="flex flex-col">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+        </p>
 
-        <label>
-            Price
-            <input type="text" name="product_price" placeholder="1.69">
-        </label>
+        <p class="flex flex-col">
+            <label for="barcode">Barcode</label>
+            <input type="number" id="barcode" name="barcode">
+        </p>
 
-        <label>
-            Count
-            <input type="number" name="product_count" placeholder="1">
-        </label>
+        <fieldset>
+            <legend>Price</legend>
+            <p class="flex flex-col">
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" placeholder="1.69">
+            </p>
+
+            <p class="flex flex-col">
+                <label for="discount">Discount price</label>
+                <input type="text" id="discount" name="discount">
+            </p>
+
+            <p class="flex flex-col">
+                <label for="discount_condition">Discount condition</label>
+                <textarea id="discount_condition" name="discount_condition" rows="5"></textarea>
+            </p>
+
+            <p class="flex flex-col">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" name="amount">
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Retail shop</legend>
+                <ul>
+                    <li>
+                        <label>
+                            <input type="radio" name="retail_shop" value="iki">
+                            Iki
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="retail_shop" value="iki">
+                            Maxima
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="retail_shop" value="iki">
+                            Lidl
+                        </label>
+                    </li>
+                </ul>
+        </fieldset>
 
         <button type="submit">Add</button>
     </form>
 </body>
+
+<style>
+    .flex {
+        display: flex;
+    }
+
+    .flex-col {
+        flex-direction: column;
+    }
+</style>
 
 </html>
