@@ -145,23 +145,35 @@ int boot(const Routes *routes)
             exit(EXIT_FAILURE);
         }
 
-        char file_buf[1024];
-        ssize_t file_len = read(file_fd, file_buf, sizeof(file_buf));
+        __off_t file_length = lseek(file_fd, 0, SEEK_END);
+        lseek(file_fd, 0, SEEK_SET);
+
+        char response_header[1024];
+        len = snprintf(response_header, sizeof(response_header), "HTTP/1.1 200 OK\r\nContent-Length: %zu\r\n\r\n", file_length);
+        response_header[len] = '\0';
+        ssize_t response_bytes_sent = send(req_sockfd, response_header, strlen(response_header), 0);
+        if (response_bytes_sent == -1) {
+            perror("send");
+            exit(EXIT_FAILURE);
+        } else if (response_bytes_sent == 0) {
+            printf("send: partial message sent");
+        }
+
+        size_t response_body_len = file_length * sizeof(char);
+        char *response_body = malloc(response_body_len);
+        ssize_t file_len = read(file_fd, response_body, response_body_len);
         if (file_len == -1) {
             perror("read file");
             exit(EXIT_FAILURE);
         }
-        file_buf[file_len] = '\0';
+        response_body[file_len] = '\0';
         close(file_fd);
 
-        char res_msg[1024];
-        len = snprintf(res_msg, sizeof(res_msg), "HTTP/1.1 200 OK\r\nContent-Length: %zu\r\n\r\n%s", file_len, file_buf);
-        res_msg[len] = '\0';
-        ssize_t res_bytes_sent = send(req_sockfd, res_msg, strlen(res_msg), 0);
-        if (res_bytes_sent == -1) {
+        response_bytes_sent = send(req_sockfd, response_body, strlen(response_body), 0);
+        if (response_bytes_sent == -1) {
             perror("send");
             exit(EXIT_FAILURE);
-        } else if (res_bytes_sent == 0) {
+        } else if (response_bytes_sent == 0) {
             printf("send: partial message sent");
         }
 
