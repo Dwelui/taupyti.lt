@@ -5,5 +5,6 @@
 #include "../../dep/sss/src/http/response.h"
 
 int default_controller_index(const HttpRequest *req, HttpResponse *res);
+int default_controller_store(const HttpRequest *req, HttpResponse *res);
 
 #endif // DEFAULT_CONTROLLER_H

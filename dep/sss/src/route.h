@@ -7,7 +7,8 @@
 typedef int (*RouteHandler)(const HttpRequest *req, HttpResponse *res);
 
 typedef struct {
-    char path[1024];
+    HttpMethod method;
+    char *path;
     RouteHandler handler;
 } Route;
 
