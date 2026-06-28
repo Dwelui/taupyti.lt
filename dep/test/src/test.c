@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "test_case.h"
+#include "test.h"
 
 int test_run_tests(const char *name, TestCase *tests, size_t count)
 {

@@ -1,4 +1,4 @@
-#include "../../test/src/test_case.h"
+#include "../../test/src/test.h"
 #include "unit/http/test_request.h"
 
 TestCase unit_tests[] = {
