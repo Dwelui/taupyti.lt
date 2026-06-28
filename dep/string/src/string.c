@@ -88,7 +88,7 @@ string_array string_split(string string, const char *delimiter)
 
     size_t current_string_start = 0;
     size_t current_string_len = 0;
-    size_t string_count = 0;
+    int string_count = 0;
     for (size_t i = 0; i < string.count; i++) {
         delimeter_matches = true;
         for (size_t y = 0; y < delimiter_len && i + y <= string.count; y++) {
@@ -107,18 +107,13 @@ string_array string_split(string string, const char *delimiter)
             current_string_len = i - current_string_start;
             result.items[string_count] = string_from_data(string.data + current_string_start, current_string_len);
 
+            string_count++;
             current_string_start += current_string_len + delimiter_len;
-
-            char *s = string_to_cstring(result.items[string_count]);
-            printf("(%s)", s);
-            continue;
         }
     }
 
     if (current_string_start < string.count) {
         result.items[string_count] = string_from_data(string.data + current_string_start, current_string_len);
-        char *s = string_to_cstring(result.items[string_count]);
-        printf("(%s)", s);
     }
 
     return result;

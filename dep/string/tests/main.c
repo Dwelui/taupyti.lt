@@ -1,6 +1,7 @@
 #include "../../test/src/test.h"
 #include "../src/string.h"
 
+#include <stdio.h>
 #include <string.h>
 
 void test_string_from_cstring(TestCaseOutput *output)
