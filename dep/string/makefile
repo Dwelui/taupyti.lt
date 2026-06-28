@@ -3,9 +3,12 @@ CFLAGS = -Wall -Wextra -g
 build_dir:
 	@mkdir -p build
 
-# build/libstring.a: | build_dir
-# 	@ar rcs $@ $^
-#
+build/string.o: src/string.c | build_dir
+	gcc $(CFLAGS) -c $< -o $@
+
+build/libstring.a: build/string.o | build_dir
+	@ar rcs $@ $^
+
 ##### Tests #####
 build/libtest.a: | build_dir
 	@make -C ../test
@@ -17,7 +20,7 @@ build/tests.o: tests/main.c | build_dir
 build/test_string.o: tests/unit/test_string.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-tests: build/tests.o build/test_string.o build/libtest.a
+tests: build/tests.o build/test_string.o build/libstring.a build/libtest.a
 	@gcc $^ -o build/tests
 
 test: tests
