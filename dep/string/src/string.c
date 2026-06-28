@@ -58,18 +58,11 @@ string_array string_split(string string, const char *delimiter)
         .count = 0,
     };
 
-    // TODO:
-    // - [x] count seperate string amount (how many time delimiter is found minus if input string starts or ends with delimiter)
-    // - [x] set count and allocate memory for strings in string_array
-    // - [ ] travel input string and create strings that have data pointer and count according
-
     size_t delimiter_len = strlen(delimiter);
-    size_t string_data_start = 1;
-    size_t string_data_end = string.count - delimiter_len;
 
     bool delimeter_matches;
     int delimiter_count = 0;
-    for (size_t i = string_data_start; i < string_data_end; i++) {
+    for (size_t i = 1; i < string.count - delimiter_len; i++) {
         delimeter_matches = true;
         for (size_t y = 0; y < delimiter_len; y++) {
             if (string.data[i + y] != delimiter[y]) {
@@ -91,7 +84,7 @@ string_array string_split(string string, const char *delimiter)
     int string_count = 0;
     for (size_t i = 0; i < string.count; i++) {
         delimeter_matches = true;
-        for (size_t y = 0; y < delimiter_len && i + y <= string.count; y++) {
+        for (size_t y = 0; y < delimiter_len && i + y < string.count; y++) {
             if (string.data[i + y] != delimiter[y]) {
                 delimeter_matches = false;
                 break;
@@ -103,8 +96,8 @@ string_array string_split(string string, const char *delimiter)
                 current_string_start += current_string_len + delimiter_len;
                 continue;
             }
-
             current_string_len = i - current_string_start;
+
             result.items[string_count] = string_from_data(string.data + current_string_start, current_string_len);
 
             string_count++;
