@@ -17,10 +17,7 @@ build/libtest.a: | build_dir
 build/tests.o: tests/main.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-build/test_string.o: tests/unit/test_string.c | build_dir
-	gcc $(CFLAGS) -c $< -o $@
-
-tests: build/tests.o build/test_string.o build/libstring.a build/libtest.a
+tests: build/tests.o build/libstring.a build/libtest.a
 	@gcc $^ -o build/tests
 
 test: tests
