@@ -2,6 +2,9 @@ CFLAGS = -Wall -Wextra -g
 
 all: build/libtest.a
 
+clear:
+	@rm -rf build
+
 build_dir:
 	@mkdir -p build
 

@@ -13,6 +13,7 @@ typedef struct {
     size_t count;
 } string_array;
 
+string string_from_data(char* data, size_t count);
 string string_from_cstring(const char *data);
 char *string_to_cstring(string string);
 
