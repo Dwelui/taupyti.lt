@@ -1,22 +1,22 @@
 CFLAGS = -Wall -Wextra -g
 
-build:
-	mkdir -p build
+build: build/default_contoller.o build/main.o build/libsss.a | build_dir
+	@gcc $^ -o build/taupyti.lt
 
-build/libsss.a: | build
+build_dir:
+	@mkdir -p build
+
+build/libsss.a: | build_dir
 	@make -C dep/sss all
 	@cp dep/sss/build/libsss.a build/libsss.a
 
-build/default_contoller.o: src/controller/default_controller.c | build
+build/default_contoller.o: src/controller/default_controller.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-build/main.o: main.c | build
+build/main.o: main.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-all: build/default_contoller.o build/main.o build/libsss.a | build
-	@gcc $^ -o build/taupyti.lt
-
-run: all
+run: build
 	clear
 	@./build/taupyti.lt
 
