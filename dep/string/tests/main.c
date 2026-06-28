@@ -43,11 +43,44 @@ void test_string_to_cstring(TestCaseOutput *output)
     }
 }
 
+
+void test_string_split(TestCaseOutput *output)
+{
+    string string = string_from_cstring("aa, bb, cc, dd, ee, ff");
+
+    string_array string_array = string_split(string, ", ");
+}
+
+void test_string_split_starts_with_delimeter(TestCaseOutput *output)
+{
+    string string = string_from_cstring(", aa, bb, cc, dd, ee, ff");
+
+    string_array string_array = string_split(string, ", ");
+}
+
+void test_string_split_starts_with_longer_delimeter(TestCaseOutput *output)
+{
+    string string = string_from_cstring(" , aa , bb , cc , dd , ee , ff");
+
+    string_array string_array = string_split(string, " , ");
+}
+
+void test_string_split_ends_with_delimeter(TestCaseOutput *output)
+{
+    string string = string_from_cstring("aa, bb, cc, dd, ee, ff, ");
+
+    string_array string_array = string_split(string, ", ");
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring),
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
     TEST_CASE_REGISTER(test_string_to_cstring),
+    TEST_CASE_REGISTER(test_string_split),
+    TEST_CASE_REGISTER(test_string_split_starts_with_delimeter),
+    TEST_CASE_REGISTER(test_string_split_starts_with_longer_delimeter),
+    TEST_CASE_REGISTER(test_string_split_ends_with_delimeter),
 };
 
 
