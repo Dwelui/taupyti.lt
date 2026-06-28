@@ -1,5 +1,5 @@
-#ifndef TEST_CASE_H
-#define TEST_CASE_H
+#ifndef TEST_H
+#define TEST_H
 
 #define TEST_CASE_REGISTER(fn) { #fn, fn }
 #define OUTPUT_MESSAGE_SIZE 1024
@@ -24,4 +24,4 @@ void test_string_is_equal(TestCaseOutput *output, const char *expected, const ch
 void test_int_is_equal(TestCaseOutput *output, int expected, int actual);
 bool test_is_null(TestCaseOutput *output, const void *pointer, const char *message);
 
-#endif // TEST_CASE_H
+#endif // TEST_H
