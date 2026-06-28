@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../test_case.h"
-#include "unit_tests.h"
-#include "http/test_request.h"
+#include "test_case.h"
+#include "unit/http/test_request.h"
 
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_http_request_parse_version),
@@ -37,4 +36,14 @@ int run_unit_tests()
     }
 
     return status;
+}
+
+int main()
+{
+    printf("Running unit tests...\n");
+    if (run_unit_tests() == 0) {
+        printf("[PASS] Unit tests\n");
+    } else {
+        printf("[FAIL] Unit tests\n");
+    }
 }

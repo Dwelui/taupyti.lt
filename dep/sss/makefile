@@ -18,19 +18,16 @@ build/libsss.a: build/http.o build/route.o build/kernel.o | build
 all: build/libsss.a
 
 ##### Tests #####
-build/unit_tests.o: tests/unit/unit_tests.c | build
-	gcc $(CFLAGS) -c $< -o $@
-
 build/test_request.o: tests/unit/http/test_request.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
-build/tests.o: tests/tests.c | build
+build/tests.o: tests/main.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
 build/test_case.o: tests/test_case.c | build
 	gcc $(CFLAGS) -c $< -o $@
 
-tests: build/tests.o build/test_case.o build/unit_tests.o build/test_request.o build/libsss.a
+tests: build/tests.o build/test_case.o build/test_request.o build/libsss.a
 	@gcc $^ -o build/tests
 
 test: tests
