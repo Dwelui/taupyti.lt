@@ -17,7 +17,11 @@ build/route.o: src/route.c | build_dir
 build/kernel.o: kernel.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-build/libsss.a: build/http.o build/route.o build/kernel.o | build_dir
+build/libstring.a: | build_dir
+	@make -C ../string
+	@cp ../string/build/libstring.a build/libstring.a
+
+build/libsss.a: build/libstring.a build/http.o build/route.o build/kernel.o | build_dir
 	@ar rcs $@ $^
 
 ##### Tests #####
@@ -31,7 +35,7 @@ build/test_request.o: tests/unit/http/test_request.c | build_dir
 build/tests.o: tests/main.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
-tests: build/tests.o build/test_request.o build/libsss.a build/libtest.a
+tests: build/tests.o build/test_request.o build/libsss.a build/libtest.a build/libstring.a
 	@gcc $^ -o build/tests
 
 test: tests
