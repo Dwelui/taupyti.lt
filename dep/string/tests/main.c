@@ -2,7 +2,10 @@
 #include "unit/test_string.h"
 
 TestCase unit_tests[] = {
-    TEST_CASE_REGISTER(test_string_create_from_cstring),
+    TEST_CASE_REGISTER(test_string_from_cstring),
+    TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
+    TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
+    TEST_CASE_REGISTER(test_string_to_cstring),
 };
 
 int main()
