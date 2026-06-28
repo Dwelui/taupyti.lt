@@ -50,6 +50,12 @@ void test_string_split(TestCaseOutput *output)
     string string = string_from_cstring("aa, bb, cc, dd, ee, ff");
 
     string_array string_array = string_split(string, ", ");
+    test_string_is_equal(output, "aa", string_to_cstring(string_array.items[0]));
+    test_string_is_equal(output, "bb", string_to_cstring(string_array.items[1]));
+    test_string_is_equal(output, "cc", string_to_cstring(string_array.items[2]));
+    test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
+    test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
+    test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
 }
 
 void test_string_split_starts_with_delimeter(TestCaseOutput *output)
@@ -57,6 +63,12 @@ void test_string_split_starts_with_delimeter(TestCaseOutput *output)
     string string = string_from_cstring(", aa, bb, cc, dd, ee, ff");
 
     string_array string_array = string_split(string, ", ");
+    test_string_is_equal(output, "aa", string_to_cstring(string_array.items[0]));
+    test_string_is_equal(output, "bb", string_to_cstring(string_array.items[1]));
+    test_string_is_equal(output, "cc", string_to_cstring(string_array.items[2]));
+    test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
+    test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
+    test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
 }
 
 void test_string_split_starts_with_longer_delimeter(TestCaseOutput *output)
@@ -64,6 +76,12 @@ void test_string_split_starts_with_longer_delimeter(TestCaseOutput *output)
     string string = string_from_cstring(" , aa , bb , cc , dd , ee , ff");
 
     string_array string_array = string_split(string, " , ");
+    test_string_is_equal(output, "aa", string_to_cstring(string_array.items[0]));
+    test_string_is_equal(output, "bb", string_to_cstring(string_array.items[1]));
+    test_string_is_equal(output, "cc", string_to_cstring(string_array.items[2]));
+    test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
+    test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
+    test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
 }
 
 void test_string_split_ends_with_delimeter(TestCaseOutput *output)
@@ -71,6 +89,12 @@ void test_string_split_ends_with_delimeter(TestCaseOutput *output)
     string string = string_from_cstring("aa, bb, cc, dd, ee, ff, ");
 
     string_array string_array = string_split(string, ", ");
+    test_string_is_equal(output, "aa", string_to_cstring(string_array.items[0]));
+    test_string_is_equal(output, "bb", string_to_cstring(string_array.items[1]));
+    test_string_is_equal(output, "cc", string_to_cstring(string_array.items[2]));
+    test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
+    test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
+    test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
 }
 
 TestCase unit_tests[] = {
