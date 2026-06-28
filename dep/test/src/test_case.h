@@ -17,6 +17,8 @@ typedef struct {
     void (*fn)(TestCaseOutput *output);
 } TestCase;
 
+int test_run_tests(const char *name, TestCase *tests, size_t count);
+
 void test_fail(TestCaseOutput *output, const char *message);
 void test_string_is_equal(TestCaseOutput *output, const char *expected, const char *actual);
 void test_int_is_equal(TestCaseOutput *output, int expected, int actual);
