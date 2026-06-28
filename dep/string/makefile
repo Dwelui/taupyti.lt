@@ -25,3 +25,6 @@ tests: build/tests.o build/test_string.o build/libstring.a build/libtest.a
 
 test: tests
 	@./build/tests
+
+clear:
+	rm -rf build

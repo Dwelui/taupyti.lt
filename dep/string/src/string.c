@@ -31,3 +31,25 @@ char *string_to_cstring(string string)
 
     return result;
 }
+
+// TODO: Do not allocate additional for copying string into seperate structs.
+// Make all string structs look at the same string data.
+string_array string_split(string string, const char *delimiter)
+{
+    string_array result = {
+        .items = NULL,
+        .count = 0,
+    };
+
+    // TODO:
+    // count seperate string amount (how many time delimiter is found minus if input string starts or ends with delimiter)
+    // allocate memory for strings in string_array
+    // travel input string and create strings that have data pointyer and count according
+
+
+    for (size_t i = 0; i <= string.count; i++) {
+        
+    }
+
+    return result;
+}
