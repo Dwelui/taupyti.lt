@@ -1,7 +1,7 @@
 #ifndef TEST_REQUEST_H
 #define TEST_REQUEST_H
 
-#include "../../../../test/test_case.h"
+#include "../../../../test/src/test_case.h"
 
 void test_http_request_parse_version(TestCaseOutput *output);
 void test_http_request_parse_method(TestCaseOutput *output);
