@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
-const HttpRequest *http_request_create(char *req_buf, size_t req_len)
+HttpRequest *http_request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
@@ -73,6 +73,11 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
     request->parameters.count = parameter_index;
 
     return request;
+}
+
+void http_request_free(HttpRequest *req)
+{
+    free(req);
 }
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name)

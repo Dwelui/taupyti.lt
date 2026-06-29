@@ -34,43 +34,55 @@ void test_http_request_parse_version(TestCaseOutput *output)
 {
     char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
-    const HttpRequest *request = http_request_create(input, sizeof(input));
+    HttpRequest *request = http_request_create(input, sizeof(input));
 
     test_int_is_equal(output, HTTP_VERSION_1_1, request->version);
+
+    free(input);
+    http_request_free(request);
 }
 
 void test_http_request_parse_method(TestCaseOutput *output)
 {
     char *input = file_read("tests/fixtures/http/valid_get_1.http");
 
-    const HttpRequest *request = http_request_create(input, sizeof(input));
+    HttpRequest *request = http_request_create(input, sizeof(input));
 
     test_int_is_equal(output, HTTP_METHOD_GET, request->method);
+
+    free(input);
+    http_request_free(request);
 }
 
 void test_http_request_parse_path(TestCaseOutput *output)
 {
     char *input = file_read("tests/fixtures/http/valid_get_2.http");
 
-    const HttpRequest *request = http_request_create(input, sizeof(input));
+    HttpRequest *request = http_request_create(input, sizeof(input));
 
     test_string_is_equal(output, "/a/very/long/request/path/index.html", request->path);
+
+    free(input);
+    http_request_free(request);
 }
 
 void test_http_request_parse_path_2(TestCaseOutput *output)
 {
     char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
 
-    const HttpRequest *request = http_request_create(input, sizeof(input));
+    HttpRequest *request = http_request_create(input, sizeof(input));
 
     test_string_is_equal(output, "/", request->path);
+
+    free(input);
+    http_request_free(request);
 }
 
 void test_http_request_parse_query_parameters(TestCaseOutput *output)
 {
     char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
 
-    const HttpRequest *request = http_request_create(input, sizeof(input));
+    HttpRequest *request = http_request_create(input, sizeof(input));
 
     const HttpQueryParameter *query_parameter;
     query_parameter = http_request_find_query_parameter_by_name(request, "product_name");
@@ -84,4 +96,7 @@ void test_http_request_parse_query_parameters(TestCaseOutput *output)
     query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
     if (test_is_null(output, query_parameter, "'product_count' not found")) return;
     test_string_is_equal(output, "2", query_parameter->value);
+
+    free(input);
+    http_request_free(request);
 }
