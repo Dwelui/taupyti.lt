@@ -1,6 +1,6 @@
 CFLAGS = -fsanitize=address -O0 -Wall -Wextra -g
 
-all: build/libsss.a
+build: build/libsss.a
 
 clear:
 	@rm -rf build
@@ -18,8 +18,8 @@ build/kernel.o: kernel.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
 
 build/libstring.a: | build_dir
-	@make -C ../string
-	@cp ../string/build/libstring.a build/libstring.a
+	make -C ../string
+	cp ../string/build/libstring.a build/libstring.a
 
 build/libsss.a: build/libstring.a build/http.o build/route.o build/kernel.o | build_dir
 	@ar rcs $@ $^

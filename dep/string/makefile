@@ -1,5 +1,7 @@
 CFLAGS = -Wall -Wextra -g
 
+build: build/libstring.a
+
 build_dir:
 	@mkdir -p build
 
