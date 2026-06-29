@@ -1,4 +1,5 @@
 #include "request.h"
+#include "../../../string/src/string.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -7,9 +8,17 @@
 
 const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 {
-    char method[8], url[1024], version[9];
-    int matched = sscanf(req_buf, "%7s %1023s %8s", method, url, version);
-    assert(matched == 3);
+    (void)req_len;
+
+    string request_string = string_from_cstring(req_buf);
+    string_array request_rows = string_split(request_string, "\n");
+
+    string request_line = request_rows.items[0];
+    string_array request_line_components = string_split(request_line, " ");
+
+    char *method = string_to_cstring(request_line_components.items[0]);
+    char *url = string_to_cstring(request_line_components.items[1]);
+    char *version = string_to_cstring(request_line_components.items[2]);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
     strncpy(request->url, url, strlen(url));
@@ -17,7 +26,7 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
     request->version = http_request_string_to_version(version);
 
     int query_start = 0;
-    for (int i = 0; i < strlen(url); i++) {
+    for (size_t i = 0; i < strlen(url); i++) {
         if (url[i] == '?') {
             query_start = i;
             break;
@@ -36,7 +45,7 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 
     int parameter_index = 0, y = 0;
     bool is_reading_key = true;
-    for (int i = 0; i < strlen(query); i++) {
+    for (size_t i = 0; i < strlen(query); i++) {
         if (is_reading_key) {
             request->parameters.items[parameter_index].key[y] = query[i];
         } else {
@@ -71,7 +80,7 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name)
 {
-    for (int i = 0; i < req->parameters.count; i++) {
+    for (size_t i = 0; i < req->parameters.count; i++) {
         if (strcmp(req->parameters.items[i].key, name) == 0) {
             return &req->parameters.items[i];
         }
@@ -80,7 +89,7 @@ const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRe
     return NULL;
 }
 
-HttpMethod http_request_string_to_method(char *buf)
+HttpMethod http_request_string_to_method(const char *buf)
 {
     if (strcmp(buf, "GET") == 0) {
         return HTTP_METHOD_GET;
@@ -127,7 +136,7 @@ char *http_request_method_to_string(HttpMethod method)
     }
 }
 
-HttpVersion http_request_string_to_version(char *buf)
+HttpVersion http_request_string_to_version(const char *buf)
 {
     if (strcmp(buf, "HTTP/1.1") == 0) {
         return HTTP_VERSION_1_1;

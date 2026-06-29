@@ -41,10 +41,10 @@ void http_request_free(HttpRequest *req); // TODO: implement
 
 const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name);
 
-HttpMethod http_request_string_to_method(char *buf);
+HttpMethod http_request_string_to_method(const char *buf);
 char *http_request_method_to_string(HttpMethod method);
 
-HttpVersion http_request_string_to_version(char *buf);
+HttpVersion http_request_string_to_version(const char *buf);
 char *http_request_version_to_string(HttpVersion version);
 
 #endif // REQUEST_H
