@@ -40,6 +40,8 @@ ssize_t get_root_dir(char* buf, size_t len)
 
 void print_formatted_request_line(const HttpRequest *req, const struct addrinfo *req_addr)
 {
+    (void)req_addr;
+
     printf(
         "[%s] %s %s %s %s\n",
         "2026-06-15 18:54:35",
