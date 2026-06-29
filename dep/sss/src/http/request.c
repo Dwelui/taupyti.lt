@@ -19,9 +19,12 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     string_array_free(request_line_components);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
-    strncpy(request->url, url, strlen(url));
+    strncpy(request->url, url, strlen(url)); // TODO: Use and not copy over
     request->method = http_request_string_to_method(method); // TODO: refactor into string
     request->version = http_request_string_to_version(version); // TODO: refactor into string
+
+    free(method);
+    free(version);
 
     int query_start = 0;
     for (size_t i = 0; i < strlen(url); i++) {
@@ -40,6 +43,8 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
         strncpy(query, url + query_start + 1, strlen(url) - query_start);
         query[strlen(url) - query_start] = '\0';
     }
+
+    free(url); // TODO: Remove if it's used instead of coppied
 
     int parameter_index = 0, y = 0;
     bool is_reading_key = true;
