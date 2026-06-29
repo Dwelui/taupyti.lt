@@ -16,6 +16,7 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     char *method = string_to_cstring(request_line_components.items[0]);
     char *url = string_to_cstring(request_line_components.items[1]);
     char *version = string_to_cstring(request_line_components.items[2]);
+    string_array_free(request_line_components);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
     strncpy(request->url, url, strlen(url));
@@ -71,6 +72,8 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
         }
     }
     request->parameters.count = parameter_index;
+
+    string_array_free(request_rows);
 
     return request;
 }

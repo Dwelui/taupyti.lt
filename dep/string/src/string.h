@@ -18,5 +18,6 @@ string string_from_cstring(char *data);
 char *string_to_cstring(string string);
 
 string_array string_split(string string, const char *delimiter);
+void string_array_free(string_array array);
 
 #endif // STRING_H

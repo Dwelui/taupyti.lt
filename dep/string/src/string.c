@@ -102,3 +102,8 @@ string_array string_split(string string, const char *delimiter)
 
     return result;
 }
+
+void string_array_free(string_array array)
+{
+    free(array.items);
+}
