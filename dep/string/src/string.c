@@ -46,7 +46,7 @@ char *string_to_cstring(string string)
     }
 
     memcpy(result, string.data, string.count);
-    result[string.count + 1] = 0;
+    result[string.count] = '\0';
 
     return result;
 }
