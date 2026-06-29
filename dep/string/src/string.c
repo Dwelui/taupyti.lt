@@ -106,7 +106,7 @@ string_array string_split(string string, const char *delimiter)
     }
 
     if (current_string_start < string.count) {
-        result.items[string_count] = string_from_data(string.data + current_string_start, current_string_len);
+        result.items[string_count] = string_from_data(string.data + current_string_start, string.count - current_string_start);
     }
 
     return result;
