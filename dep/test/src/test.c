@@ -17,7 +17,7 @@ int test_run_tests(const char *name, TestCase *tests, size_t count)
         } else {
             printf("\t[FAIL] %s\n", tests[i].name);
 
-            for (int y = 0; y < output->count; y++) {
+            for (size_t y = 0; y < output->count; y++) {
                 printf("\t\t -> %s\n", output->messages[y]);
             }
 
@@ -33,6 +33,8 @@ int test_run_tests(const char *name, TestCase *tests, size_t count)
     } else {
         printf("[FAIL] %s tests\n", name);
     }
+
+    free(output);
 
     return status;
 }
