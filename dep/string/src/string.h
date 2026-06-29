@@ -14,7 +14,7 @@ typedef struct {
 } string_array;
 
 string string_from_data(char* data, size_t count);
-string string_from_cstring(const char *data);
+string string_from_cstring(char *data);
 char *string_to_cstring(string string);
 
 string_array string_split(string string, const char *delimiter);

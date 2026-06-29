@@ -21,21 +21,9 @@ string string_from_data(char* data, size_t count)
     return result;
 }
 
-string string_from_cstring(const char *data)
+string string_from_cstring(char *data)
 {
-    string result;
-
-    result.count = strlen(data);
-    result.data = malloc(result.count);
-
-    if (result.data == NULL) {
-        result.count = 0;
-        return result;
-    }
-
-    memcpy(result.data, data, result.count);
-
-    return result;
+    return string_from_data(data, strlen(data));
 }
 
 char *string_to_cstring(string string)
