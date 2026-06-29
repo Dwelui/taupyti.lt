@@ -10,20 +10,17 @@ const HttpRequest *http_request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
-    string request_string = string_from_cstring(req_buf);
-    string_array request_rows = string_split(request_string, "\n");
+    string_array request_rows = string_split(string_from_cstring(req_buf), "\n");
 
-    string request_line = request_rows.items[0];
-    string_array request_line_components = string_split(request_line, " ");
-
+    string_array request_line_components = string_split(request_rows.items[0], " ");
     char *method = string_to_cstring(request_line_components.items[0]);
     char *url = string_to_cstring(request_line_components.items[1]);
     char *version = string_to_cstring(request_line_components.items[2]);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
     strncpy(request->url, url, strlen(url));
-    request->method = http_request_string_to_method(method);
-    request->version = http_request_string_to_version(version);
+    request->method = http_request_string_to_method(method); // TODO: refactor into string
+    request->version = http_request_string_to_version(version); // TODO: refactor into string
 
     int query_start = 0;
     for (size_t i = 0; i < strlen(url); i++) {

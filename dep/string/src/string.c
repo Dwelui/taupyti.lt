@@ -84,6 +84,9 @@ string_array string_split(string string, const char *delimiter)
     int string_count = 0;
     for (size_t i = 0; i < string.count; i++) {
         delimeter_matches = true;
+        //                                                            ,-delimiter
+        //                                                           \/
+        // TODO: Can be abstracted into string_starts_at(string, substring) == i
         for (size_t y = 0; y < delimiter_len && i + y < string.count; y++) {
             if (string.data[i + y] != delimiter[y]) {
                 delimeter_matches = false;
