@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -fsanitize=address -O0 -Wall -Wextra -g
 
 build: build/libstring.a
 
@@ -20,7 +20,7 @@ build/tests.o: tests/main.c | build_dir
 	@gcc $(CFLAGS) -c $< -o $@
 
 tests: build/tests.o build/libstring.a build/libtest.a
-	@gcc $^ -o build/tests
+	@gcc  $(CFLAGS) $^ -o build/tests
 
 test: tests
 	@./build/tests
