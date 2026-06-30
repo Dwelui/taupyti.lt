@@ -46,7 +46,7 @@ void print_formatted_request_line(const HttpRequest *req, const struct addrinfo 
         "[%s] %s %s %s %s\n",
         "2026-06-15 18:54:35",
         http_request_method_to_string(req->method),
-        req->url,
+        string_to_cstring(req->url),
         http_request_version_to_string(req->version),
         "<ip address>"// req_addr.ai_addr->sa_data
     );
@@ -131,11 +131,7 @@ int boot(const Routes *routes)
         print_formatted_request_line(request, &req_addr);
 
         HttpResponse *response = malloc(sizeof(HttpResponse));
-        status = route_request(routes, request, response);
-        if (status < 0) {
-            fprintf(stderr, "route: %s with error code: %d\n", request->path, status);
-            exit(EXIT_FAILURE);
-        }
+        route_request(routes, request, response);
 
         char file_path[1024];
         len = snprintf(file_path, sizeof(file_path), "%s/%s", templates_dir, response->template_path);

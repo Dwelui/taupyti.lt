@@ -2,6 +2,7 @@
 #define REQUEST_H
 
 #include <curses.h>
+#include "../../../string/src/string.h"
 
 typedef enum {
     HTTP_VERSION_1_1,
@@ -19,32 +20,22 @@ typedef enum {
 } HttpMethod;
 
 typedef struct {
-    char key[16];
-    char value[64];
-} HttpQueryParameter;
-
-typedef struct {
-    HttpQueryParameter items[32];
-    size_t count;
-} HttpQueryParameters;
-
-typedef struct {
     HttpVersion version;
     HttpMethod method;
-    HttpQueryParameters parameters;
-    char path[1024];
-    char url[1024];
+    string query;
+    string path;
+    string url;
 } HttpRequest;
 
 HttpRequest *http_request_create(char *req_buf, size_t req_len);
 void http_request_free(HttpRequest *req);
 
-const HttpQueryParameter *http_request_find_query_parameter_by_name(const HttpRequest *req, char *name);
+string *http_request_find_query_parameter_by_name(const HttpRequest *req, string name);
 
-HttpMethod http_request_string_to_method(const char *buf);
+HttpMethod http_request_string_to_method(string method);
 char *http_request_method_to_string(HttpMethod method);
 
-HttpVersion http_request_string_to_version(const char *buf);
+HttpVersion http_request_string_to_version(string version);
 char *http_request_version_to_string(HttpVersion version);
 
 #endif // REQUEST_H
