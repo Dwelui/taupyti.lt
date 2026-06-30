@@ -12,11 +12,13 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     string_array request_rows = string_split(string_from_cstring(req_buf), "\n");
 
     string_array request_line_components = string_split(request_rows.items[0], " ");
+    string_array_free(request_rows);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
     request->method = http_request_string_to_method(request_line_components.items[0]);
     request->url = request_line_components.items[1];
     request->version = http_request_string_to_version(request_line_components.items[2]);
+    string_array_free(request_line_components);
 
     string_array path_and_query = string_split(request->url, "?");
     request->path = path_and_query.items[0];
@@ -25,18 +27,13 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     } else {
         request->query = string_from_cstring("");
     }
-
-    string_array_free(request_rows);
+    string_array_free(path_and_query);
 
     return request;
 }
 
 void http_request_free(HttpRequest *req)
 {
-    // TODO: Fix this memory leak.
-    // free(req->url);
-    // free(req->path);
-    // free(req->query);
     free(req);
 }
 
@@ -55,27 +52,30 @@ HttpMethod http_request_string_to_method(string method)
 {
     char *method_cstring = string_to_cstring(method);
 
+    HttpMethod result;
     if (strcmp(method_cstring, "GET") == 0) {
-        return HTTP_METHOD_GET;
+        result = HTTP_METHOD_GET;
     } else if (strcmp(method_cstring, "PUT") == 0) {
-        return HTTP_METHOD_PUT;
+        result = HTTP_METHOD_PUT;
     } else if (strcmp(method_cstring, "POST") == 0) {
-        return HTTP_METHOD_POST;
+        result = HTTP_METHOD_POST;
     } else if (strcmp(method_cstring, "DELETE") == 0) {
-        return HTTP_METHOD_DELETE;
+        result = HTTP_METHOD_DELETE;
     } else if (strcmp(method_cstring, "PATCH") == 0) {
-        return HTTP_METHOD_PATCH;
+        result = HTTP_METHOD_PATCH;
     } else if (strcmp(method_cstring, "HEAD") == 0) {
-        return HTTP_METHOD_HEAD;
+        result = HTTP_METHOD_HEAD;
     } else if (strcmp(method_cstring, "OPTIONS") == 0) {
-        return HTTP_METHOD_OPTIONS;
+        result = HTTP_METHOD_OPTIONS;
     } else if (strcmp(method_cstring, "TRACE") == 0) {
-        return HTTP_METHOD_TRACE;
+        result =HTTP_METHOD_TRACE;
     } else {
         assert(false);
     }
 
     free(method_cstring);
+
+    return result;
 }
 
 char *http_request_method_to_string(HttpMethod method)
@@ -106,13 +106,16 @@ HttpVersion http_request_string_to_version(string version)
 {
     char *version_cstring = string_to_cstring(version);
 
+    HttpVersion result;
     if (strcmp(version_cstring, "HTTP/1.1") == 0) {
-        return HTTP_VERSION_1_1;
+        result = HTTP_VERSION_1_1;
     } else {
         assert(false);
     }
 
     free(version_cstring);
+
+    return result;
 }
 
 char *http_request_version_to_string(HttpVersion version)
