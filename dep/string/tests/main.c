@@ -101,6 +101,42 @@ void test_string_split_ends_with_delimeter(TestCaseOutput *output)
     test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
 }
 
+void test_string_starts_at_returns_0_with_same_string(TestCaseOutput *output)
+{
+    string target = string_from_cstring("Hello");
+    string substring = string_from_cstring("Hello");
+
+    size_t position = string_starts_at(target, substring);
+    test_int_is_equal(output, 0, (int)position);
+}
+
+void test_string_starts_at_returns_correct_position(TestCaseOutput *output)
+{
+    string target = string_from_cstring("Hello");
+    string substring = string_from_cstring("llo");
+
+    size_t position = string_starts_at(target, substring);
+    test_int_is_equal(output, 2, (int)position);
+}
+
+void test_string_starts_at_returns_error_on_miss(TestCaseOutput *output)
+{
+    string target = string_from_cstring("Hello");
+    string substring = string_from_cstring("World!");
+
+    size_t position = string_starts_at(target, substring);
+    test_int_is_equal(output, -1, (int)position);
+}
+
+void test_string_starts_at_returns_error_on_substring_being_longer_than_target(TestCaseOutput *output)
+{
+    string target = string_from_cstring("Hello");
+    string substring = string_from_cstring("Hello World!");
+
+    size_t position = string_starts_at(target, substring);
+    test_int_is_equal(output, -1, (int)position);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -110,6 +146,10 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_split_starts_with_delimeter),
     TEST_CASE_REGISTER(test_string_split_starts_with_longer_delimeter),
     TEST_CASE_REGISTER(test_string_split_ends_with_delimeter),
+    TEST_CASE_REGISTER(test_string_starts_at_returns_0_with_same_string),
+    TEST_CASE_REGISTER(test_string_starts_at_returns_correct_position),
+    TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_miss),
+    TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_substring_being_longer_than_target),
 };
 
 

@@ -109,3 +109,31 @@ void string_array_free(string_array array)
 {
     free(array.items);
 }
+
+
+size_t string_starts_at(string target, string substring)
+{
+    size_t position = -1;
+
+    if (target.count < substring.count) {
+        return position;
+    }
+
+    size_t y = 0;
+    for (size_t i = 0; i <= target.count; i++) {
+        y = 0;
+        for (; y <= substring.count; y++) {
+            if (target.data[i + y] != substring.data[y]) {
+                break;
+            }
+
+        }
+
+        if (y > substring.count) {
+            position = i;
+            break;
+        }
+    }
+
+    return position;
+}
