@@ -16,12 +16,12 @@ typedef struct {
 
 string string_from_data(char* data, size_t count);
 string string_from_cstring(char *data);
-char *string_to_cstring(string string);
+char *string_to_cstring(string str);
 
-string_array string_split(string string, const char *delimiter);
+string_array string_split(string str, const char *delimiter);
 void string_array_free(string_array array);
 
-size_t string_starts_at(string target, string substring);
+size_t string_starts_at(string str, string substr);
 bool string_is_equal(string a, string b);
 
 #endif // STRING_H

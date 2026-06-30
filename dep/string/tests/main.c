@@ -1,7 +1,9 @@
 #include "../../test/src/test.h"
 #include "../src/string.h"
 
+#include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 void test_string_from_cstring_correct_count(TestCaseOutput *output)
@@ -135,6 +137,19 @@ void test_string_starts_at_returns_error_on_substring_being_longer_than_target(T
 
     size_t position = string_starts_at(target, substring);
     test_int_is_equal(output, -1, (int)position);
+}
+
+void test_string_starts_at_returns_correct_position_with_substr_from_data(TestCaseOutput *output)
+{
+    string target = string_from_cstring("Hello");
+
+    size_t substr_len = 3;
+    char *substr_data = malloc(sizeof(char) * substr_len);
+    memcpy(substr_data, "ell", substr_len);
+    string substring = string_from_data(substr_data, substr_len);
+
+    size_t position = string_starts_at(target, substring);
+    test_int_is_equal(output, 2, (int)position);
 }
 
 TestCase unit_tests[] = {
