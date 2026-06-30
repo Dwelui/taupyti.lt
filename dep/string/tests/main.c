@@ -145,7 +145,7 @@ void test_string_starts_at_returns_correct_position_with_substr_from_data(TestCa
 
     size_t substr_len = 3;
     char *substr_data = malloc(sizeof(char) * substr_len);
-    memcpy(substr_data, "ell", substr_len);
+    memcpy(substr_data, "llo", substr_len);
     string substring = string_from_data(substr_data, substr_len);
 
     size_t position = string_starts_at(target, substring);
@@ -165,6 +165,7 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_starts_at_returns_correct_position),
     TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_miss),
     TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_substring_being_longer_than_target),
+    TEST_CASE_REGISTER(test_string_starts_at_returns_correct_position_with_substr_from_data),
 };
 
 

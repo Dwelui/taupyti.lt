@@ -129,16 +129,16 @@ size_t string_starts_at(string str, string substr)
     }
 
     size_t y = 0;
-    for (size_t i = 0; i <= str.count; i++) {
+    for (size_t i = 0; i < str.count; i++) {
         y = 0;
-        for (; y <= substr.count; y++) {
+        for (; y < substr.count; y++) {
             if (str.data[i + y] != substr.data[y]) {
                 break;
             }
 
         }
 
-        if (y > substr.count) {
+        if (y == substr.count) {
             position = i;
             break;
         }
