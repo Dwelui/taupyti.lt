@@ -82,25 +82,25 @@ void test_http_request_parse_path_2(TestCaseOutput *output)
     http_request_free(request);
 }
 
-// void test_http_request_parse_query_parameters(TestCaseOutput *output)
-// {
-//     char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
-//
-//     HttpRequest *request = http_request_create(input, sizeof(input));
-//
-//     const HttpQueryParameter *query_parameter;
-//     query_parameter = http_request_find_query_parameter_by_name(request, "product_name");
-//     if (test_is_null(output, query_parameter, "'product_name' not found")) return;
-//     test_string_is_equal(output, "milk", query_parameter->value);
-//
-//     query_parameter = http_request_find_query_parameter_by_name(request, "product_price");
-//     if (test_is_null(output, query_parameter, "'product_price' not found")) return;
-//     test_string_is_equal(output, "1.70", query_parameter->value);
-//
-//     query_parameter = http_request_find_query_parameter_by_name(request, "product_count");
-//     if (test_is_null(output, query_parameter, "'product_count' not found")) return;
-//     test_string_is_equal(output, "2", query_parameter->value);
-//
-//     free(input);
-//     http_request_free(request);
-// }
+void test_http_request_parse_query_parameters(TestCaseOutput *output)
+{
+    char *input = file_read("tests/fixtures/http/valid_get_queries_1.http");
+
+    HttpRequest *request = http_request_create(input, sizeof(input));
+
+    string *query_value;
+    query_value = http_request_find_query_value_by_name_cstring(request, "product_name");
+    if (test_is_null(output, query_value, "'product_name' not found")) return;
+    test_string_is_equal(output, "milk", query_value->value);
+
+    query_value = http_request_find_query_value_by_name_cstring(request, "product_price");
+    if (test_is_null(output, query_value, "'product_price' not found")) return;
+    test_string_is_equal(output, "1.70", query_value->value);
+
+    query_value = http_request_find_query_value_by_name_cstring(request, "product_count");
+    if (test_is_null(output, query_value, "'product_count' not found")) return;
+    test_string_is_equal(output, "2", query_value->value);
+
+    free(input);
+    http_request_free(request);
+}

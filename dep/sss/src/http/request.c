@@ -37,13 +37,28 @@ void http_request_free(HttpRequest *req)
     free(req);
 }
 
-string *http_request_find_query_parameter_by_name(const HttpRequest *req, string name)
+string *http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
 {
-    // for (size_t i = 0; i < req->parameters.count; i++) {
-    //     if (strcmp(req->parameters.items[i].key, name) == 0) {
-    //         return &req->parameters.items[i];
-    //     }
-    // }
+    string name_string = string_from_cstring((char *)name);
+
+    return http_request_find_query_value_by_name(req, name_string);
+}
+
+string *http_request_find_query_value_by_name(const HttpRequest *req, string name)
+{
+    if (req->query.count == 0) {
+        return NULL;
+    }
+
+    // string_is_equal
+
+    string_array parameters = string_split(req->query, "&");
+    for (size_t i = 0; i < parameters.count; i++) {
+        if (string_is_equal(parameters.items[i], name)) {
+            string_array key_and_value = string_split(parameters.items[i], "=");
+            return &key_and_value.items[1];
+        }
+    }
 
     return NULL;
 }

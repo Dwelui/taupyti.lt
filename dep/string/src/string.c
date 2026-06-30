@@ -39,6 +39,8 @@ char *string_to_cstring(string string)
     return result;
 }
 
+// string_is_equal -> string_starts_at(a_string, b_string) == 0 && a_string.count == b_string.count
+
 string_array string_split(string string, const char *delimiter)
 {
     string_array result = {
