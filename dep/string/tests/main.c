@@ -39,6 +39,8 @@ void test_string_to_cstring(TestCaseOutput *output)
             test_fail(output, "letters do not match");
         }
     }
+
+    free(cstring);
 }
 
 void test_string_split_1(TestCaseOutput *output)
@@ -52,6 +54,8 @@ void test_string_split_1(TestCaseOutput *output)
     test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
     test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
     test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
+
+    string_array_free(string_array);
 }
 
 void test_string_split_2(TestCaseOutput *output)
@@ -62,6 +66,8 @@ void test_string_split_2(TestCaseOutput *output)
     test_string_is_equal(output, "GET", string_to_cstring(string_array.items[0]));
     test_string_is_equal(output, "/", string_to_cstring(string_array.items[1]));
     test_string_is_equal(output, "HTTP/1.1", string_to_cstring(string_array.items[2]));
+
+    string_array_free(string_array);
 }
 
 void test_string_split_starts_with_delimeter(TestCaseOutput *output)
@@ -75,6 +81,8 @@ void test_string_split_starts_with_delimeter(TestCaseOutput *output)
     test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
     test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
     test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
+
+    string_array_free(string_array);
 }
 
 void test_string_split_starts_with_longer_delimeter(TestCaseOutput *output)
@@ -88,6 +96,8 @@ void test_string_split_starts_with_longer_delimeter(TestCaseOutput *output)
     test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
     test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
     test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
+
+    string_array_free(string_array);
 }
 
 void test_string_split_ends_with_delimeter(TestCaseOutput *output)
@@ -101,6 +111,8 @@ void test_string_split_ends_with_delimeter(TestCaseOutput *output)
     test_string_is_equal(output, "dd", string_to_cstring(string_array.items[3]));
     test_string_is_equal(output, "ee", string_to_cstring(string_array.items[4]));
     test_string_is_equal(output, "ff", string_to_cstring(string_array.items[5]));
+
+    string_array_free(string_array);
 }
 
 void test_string_starts_at_returns_0_with_same_string(TestCaseOutput *output)
