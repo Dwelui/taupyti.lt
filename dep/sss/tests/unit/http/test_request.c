@@ -88,18 +88,15 @@ void test_http_request_parse_query_parameters(TestCaseOutput *output)
 
     HttpRequest *request = http_request_create(input, sizeof(input));
 
-    string *query_value;
+    string query_value;
     query_value = http_request_find_query_value_by_name_cstring(request, "product_name");
-    if (test_is_null(output, query_value, "'product_name' not found")) return;
-    test_string_is_equal(output, "milk", query_value->value);
+    test_cstring_is_equal_to_string(output, "milk", query_value);
 
     query_value = http_request_find_query_value_by_name_cstring(request, "product_price");
-    if (test_is_null(output, query_value, "'product_price' not found")) return;
-    test_string_is_equal(output, "1.70", query_value->value);
+    test_cstring_is_equal_to_string(output, "1.70", query_value);
 
     query_value = http_request_find_query_value_by_name_cstring(request, "product_count");
-    if (test_is_null(output, query_value, "'product_count' not found")) return;
-    test_string_is_equal(output, "2", query_value->value);
+    test_cstring_is_equal_to_string(output, "2", query_value);
 
     free(input);
     http_request_free(request);

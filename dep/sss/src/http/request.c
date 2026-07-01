@@ -37,30 +37,40 @@ void http_request_free(HttpRequest *req)
     free(req);
 }
 
-string *http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
+string http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
 {
     string name_string = string_from_cstring((char *)name);
 
     return http_request_find_query_value_by_name(req, name_string);
 }
 
-string *http_request_find_query_value_by_name(const HttpRequest *req, string name)
+string http_request_find_query_value_by_name(const HttpRequest *req, string name)
 {
-    if (req->query.count == 0) {
-        return NULL;
-    }
+    string result = string_empty();
 
-    // string_is_equal
+    if (req->query.count == 0) {
+        return result;
+    }
 
     string_array parameters = string_split(req->query, "&");
+    string_array key_and_value;
     for (size_t i = 0; i < parameters.count; i++) {
-        if (string_is_equal(parameters.items[i], name)) {
-            string_array key_and_value = string_split(parameters.items[i], "=");
-            return &key_and_value.items[1];
+        key_and_value = string_split(parameters.items[i], "=");
+        if (
+            key_and_value.count == 2 &&
+            string_is_equal(key_and_value.items[0], name)
+        ) {
+            result = key_and_value.items[1];
+            break;
         }
+
+        string_array_free(key_and_value);
     }
 
-    return NULL;
+    string_array_free(key_and_value);
+    string_array_free(parameters);
+
+    return result;
 }
 
 HttpMethod http_request_string_to_method(string method)

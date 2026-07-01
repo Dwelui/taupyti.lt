@@ -5,6 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+string string_empty()
+{
+    return string_from_cstring("");
+}
+
 string string_from_data(char* data, size_t count)
 {
     string result = {

@@ -30,8 +30,8 @@ typedef struct {
 HttpRequest *http_request_create(char *req_buf, size_t req_len);
 void http_request_free(HttpRequest *req);
 
-string *http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name);
-string *http_request_find_query_value_by_name(const HttpRequest *req, string name);
+string http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name);
+string http_request_find_query_value_by_name(const HttpRequest *req, string name);
 
 HttpMethod http_request_string_to_method(string method);
 char *http_request_method_to_string(HttpMethod method);

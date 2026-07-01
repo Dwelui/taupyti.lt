@@ -21,8 +21,10 @@ typedef struct {
 int test_run_tests(const char *name, TestCase *tests, size_t count);
 
 void test_fail(TestCaseOutput *output, const char *message);
+
 void test_cstring_is_equal_to_string(TestCaseOutput *output, const char *expected, string actual);
 void test_string_is_equal(TestCaseOutput *output, const char *expected, const char *actual);
+
 void test_int_is_equal(TestCaseOutput *output, int expected, int actual);
 bool test_is_null(TestCaseOutput *output, const void *pointer, const char *message);
 void test_is_true(TestCaseOutput *output, bool actual);
