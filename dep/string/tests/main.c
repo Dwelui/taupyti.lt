@@ -152,6 +152,24 @@ void test_string_starts_at_returns_correct_position_with_substr_from_data(TestCa
     test_int_is_equal(output, 2, (int)position);
 }
 
+void test_string_is_equal_returns_true_with_same_strings(TestCaseOutput *output)
+{
+    string a = string_from_cstring("Hello");
+    string b = string_from_cstring("Hello");
+
+    bool is_same = string_is_equal(a, b);
+    test_is_true(output, is_same);
+}
+
+void test_string_is_equal_returns_false_with_different_strings(TestCaseOutput *output)
+{
+    string a = string_from_cstring("Hello");
+    string b = string_from_cstring("World");
+
+    bool is_same = string_is_equal(a, b);
+    test_is_false(output, is_same);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -166,6 +184,8 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_miss),
     TEST_CASE_REGISTER(test_string_starts_at_returns_error_on_substring_being_longer_than_target),
     TEST_CASE_REGISTER(test_string_starts_at_returns_correct_position_with_substr_from_data),
+    TEST_CASE_REGISTER(test_string_is_equal_returns_true_with_same_strings),
+    TEST_CASE_REGISTER(test_string_is_equal_returns_false_with_different_strings),
 };
 
 

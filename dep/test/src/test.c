@@ -67,6 +67,24 @@ void test_int_is_equal(TestCaseOutput *output, int expected, int actual)
     }
 }
 
+void test_is_true(TestCaseOutput *output, bool actual)
+{
+    char message[OUTPUT_MESSAGE_SIZE] = { 0 };
+    if (!actual) {
+        sprintf(message, "expected: true, actual: false");
+        test_fail(output, message);
+    }
+}
+
+void test_is_false(TestCaseOutput *output, bool actual)
+{
+    char message[OUTPUT_MESSAGE_SIZE] = { 0 };
+    if (actual) {
+        sprintf(message, "expected: false, actual: true");
+        test_fail(output, message);
+    }
+}
+
 bool test_is_null(TestCaseOutput *output, const void *pointer, const char *message)
 {
     if (pointer == NULL) {

@@ -132,3 +132,8 @@ size_t string_starts_at(string str, string substr)
 
     return position;
 }
+
+bool string_is_equal(string a, string b)
+{
+    return string_starts_at(a, b) == 0 && a.count == b.count;
+}
