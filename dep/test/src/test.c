@@ -58,6 +58,13 @@ void test_string_is_equal(TestCaseOutput *output, const char *expected, const ch
     }
 }
 
+void test_cstring_is_equal_to_string(TestCaseOutput *output, const char *expected, string actual)
+{
+    char *actual_string = string_to_cstring(actual);
+    test_string_is_equal(output, expected, actual_string);
+    free(actual_string);
+}
+
 void test_int_is_equal(TestCaseOutput *output, int expected, int actual)
 {
     char message[OUTPUT_MESSAGE_SIZE] = { 0 };
