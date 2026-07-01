@@ -39,8 +39,6 @@ char *string_to_cstring(string str)
     return result;
 }
 
-// string_is_equal -> string_starts_at(a_string, b_string) == 0 && a_string.count == b_string.count
-
 string_array string_split(string str, const char *delimiter)
 {
     string_array result = {
@@ -48,7 +46,6 @@ string_array string_split(string str, const char *delimiter)
         .count = 0,
     };
 
-    string delimiter_string = string_from_cstring((char *)delimiter);
     size_t delimiter_len = strlen(delimiter);
 
     bool delimeter_matches;
@@ -61,10 +58,6 @@ string_array string_split(string str, const char *delimiter)
                 break;
             }
         }
-
-        // if (string_starts_at(str, delimiter_string) == i) {
-        //     delimeter_matches = false;
-        // }
 
         if (delimeter_matches) {
             delimiter_count++;
@@ -79,19 +72,12 @@ string_array string_split(string str, const char *delimiter)
     int string_count = 0;
     for (size_t i = 0; i < str.count; i++) {
         delimeter_matches = true;
-        //                                                            ,-delimiter
-        //                                                           \/
-        // TODO: Can be abstracted into string_starts_at(string, substring) == i
         for (size_t y = 0; y < delimiter_len && i + y < str.count; y++) {
             if (str.data[i + y] != delimiter[y]) {
                 delimeter_matches = false;
                 break;
             }
         }
-
-        // if (string_starts_at(str, delimiter_string) == i) {
-        //     delimeter_matches = false;
-        // }
 
         if (delimeter_matches) {
             if (i < delimiter_len) {
