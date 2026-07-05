@@ -147,5 +147,5 @@ bool string_is_equal_cstring(string a, const char *b)
 {
     string b_string = string_from_cstring((char *) b);
 
-    return string_starts_at(a, b_string) == 0 && a.count == b_string.count;
+    return string_is_equal(a, b_string);
 }
