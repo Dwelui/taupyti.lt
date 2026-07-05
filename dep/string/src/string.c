@@ -155,6 +155,7 @@ void string_trim_start(string *str)
     const char *trimmable_characters = "\n\r ";
 
     bool is_trimmable_character = false;
+    size_t trim_position = 0;
     for (size_t i = 0; i < str->count; i++) {
         for (size_t y = 0; y < strlen(trimmable_characters); y++) {
             if (str->data[i] == trimmable_characters[y]) {
@@ -163,14 +164,16 @@ void string_trim_start(string *str)
             }
         }
 
+        trim_position = i;
         if (is_trimmable_character == false) {
-            str->data += i;
-            str->count -= i;
-            return;
+            break;
         }
 
         is_trimmable_character = false;
     }
+
+    str->data += trim_position;
+    str->count -= trim_position;
 }
 
 void string_trim_end(string *str)
@@ -178,6 +181,7 @@ void string_trim_end(string *str)
     const char *trimmable_characters = "\n\r ";
 
     bool is_trimmable_character = false;
+    size_t trim_position = str->count - 1;
     for (size_t i = str->count - 1; i > 0; i--) {
         for (size_t y = 0; y < strlen(trimmable_characters); y++) {
             if (str->data[i] == trimmable_characters[y] || str->data[i] == '\0') {
@@ -186,13 +190,15 @@ void string_trim_end(string *str)
             }
         }
 
+        trim_position = str->count - i - 1;
         if (is_trimmable_character == false) {
-            str->count -= str->count - i - 1;
-            return;
+            break;
         }
 
         is_trimmable_character = false;
     }
+
+    str->count -= trim_position;
 }
 
 void string_trim(string *str)

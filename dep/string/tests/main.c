@@ -207,6 +207,27 @@ void test_string_trim_with_string_from_data(TestCaseOutput *output)
     free(a_data);
 }
 
+void test_string_trim_with_empty_string(TestCaseOutput *output)
+{
+    string a = string_empty();
+
+    test_cstring_is_equal_to_string(output, "", a);
+}
+
+void test_string_trim_with_all_white_space(TestCaseOutput *output)
+{
+    string a = string_from_cstring("    ");
+
+    test_cstring_is_equal_to_string(output, "", a);
+}
+
+void test_string_trim_no_trim(TestCaseOutput *output)
+{
+    string a = string_from_cstring("Hello");
+
+    test_cstring_is_equal_to_string(output, "Hello", a);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -225,6 +246,9 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_is_equal_returns_false_with_different_strings),
     TEST_CASE_REGISTER(test_string_trim_with_string_from_cstring),
     TEST_CASE_REGISTER(test_string_trim_with_string_from_data),
+    TEST_CASE_REGISTER(test_string_trim_with_empty_string),
+    TEST_CASE_REGISTER(test_string_trim_with_all_white_space),
+    TEST_CASE_REGISTER(test_string_trim_no_trim),
 };
 
 
