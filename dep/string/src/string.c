@@ -152,6 +152,10 @@ bool string_is_equal_cstring(string a, const char *b)
 
 void string_trim_start(string *str)
 {
+    if (str->count == 0) {
+        return;
+    }
+
     const char *trimmable_characters = "\n\r ";
 
     bool is_trimmable_character = false;
@@ -172,25 +176,31 @@ void string_trim_start(string *str)
         is_trimmable_character = false;
     }
 
-    str->data += trim_position;
-    str->count -= trim_position;
+    if (trim_position != 0) {
+        str->data += trim_position;
+        str->count -= trim_position + 1;
+    }
 }
 
 void string_trim_end(string *str)
 {
+    if (str->count == 0) {
+        return;
+    }
+
     const char *trimmable_characters = "\n\r ";
 
     bool is_trimmable_character = false;
-    size_t trim_position = str->count - 1;
+    size_t trim_position = 0;
     for (size_t i = str->count - 1; i > 0; i--) {
         for (size_t y = 0; y < strlen(trimmable_characters); y++) {
-            if (str->data[i] == trimmable_characters[y] || str->data[i] == '\0') {
+            if (str->data[i] == trimmable_characters[y]) {
                 is_trimmable_character = true;
                 break;
             }
         }
 
-        trim_position = str->count - i - 1;
+        trim_position = i;
         if (is_trimmable_character == false) {
             break;
         }
@@ -198,7 +208,9 @@ void string_trim_end(string *str)
         is_trimmable_character = false;
     }
 
-    str->count -= trim_position;
+    if (trim_position != 0) {
+        str->count = trim_position + 1;
+    }
 }
 
 void string_trim(string *str)

@@ -211,19 +211,39 @@ void test_string_trim_with_empty_string(TestCaseOutput *output)
 {
     string a = string_empty();
 
+    string_trim(&a);
+
     test_cstring_is_equal_to_string(output, "", a);
 }
 
-void test_string_trim_with_all_white_space(TestCaseOutput *output)
+void test_string_trim_with_all_white_space_from_cstring(TestCaseOutput *output)
 {
     string a = string_from_cstring("    ");
 
+    string_trim(&a);
+
     test_cstring_is_equal_to_string(output, "", a);
+}
+
+void test_string_trim_with_all_white_space_from_data(TestCaseOutput *output)
+{
+    size_t a = 5;
+    char *a_data = malloc(sizeof(char) * a);
+    memcpy(a_data, "     ", a);
+    string a_string = string_from_data(a_data, a);
+
+    string_trim(&a_string);
+
+    test_cstring_is_equal_to_string(output, "", a_string);
+
+    free(a_data);
 }
 
 void test_string_trim_no_trim(TestCaseOutput *output)
 {
     string a = string_from_cstring("Hello");
+
+    string_trim(&a);
 
     test_cstring_is_equal_to_string(output, "Hello", a);
 }
@@ -247,7 +267,8 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_trim_with_string_from_cstring),
     TEST_CASE_REGISTER(test_string_trim_with_string_from_data),
     TEST_CASE_REGISTER(test_string_trim_with_empty_string),
-    TEST_CASE_REGISTER(test_string_trim_with_all_white_space),
+    TEST_CASE_REGISTER(test_string_trim_with_all_white_space_from_cstring),
+    TEST_CASE_REGISTER(test_string_trim_with_all_white_space_from_data),
     TEST_CASE_REGISTER(test_string_trim_no_trim),
 };
 
