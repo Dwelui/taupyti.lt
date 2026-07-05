@@ -1,14 +1,18 @@
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -fsanitize=address -O0 -Wall -Wextra -g
 
-build: build/default_contoller.o build/main.o build/libsss.a | build_dir
-	@gcc $^ -o build/taupyti.lt
+build: build/default_contoller.o build/main.o build/libsss.a build/libstring.a
+	gcc $(CFLAGS) $^ -o build/taupyti.lt
 
 build_dir:
 	@mkdir -p build
 
 build/libsss.a: | build_dir
-	@make -C dep/sss all
+	@make -C dep/sss
 	@cp dep/sss/build/libsss.a build/libsss.a
+
+build/libstring.a: | build_dir
+	@make -C dep/string
+	@cp dep/string/build/libstring.a build/libstring.a
 
 build/default_contoller.o: src/controller/default_controller.c | build_dir
 	gcc $(CFLAGS) -c $< -o $@
