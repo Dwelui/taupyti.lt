@@ -129,16 +129,12 @@ char *http_request_method_to_string(HttpMethod method)
 
 HttpVersion http_request_string_to_version(string version)
 {
-    char *version_cstring = string_to_cstring(version);
-
     HttpVersion result;
-    if (strcmp(version_cstring, "HTTP/1.1") == 0) {
+    if (string_is_equal_cstring(version, "HTTP/1.1")) {
         result = HTTP_VERSION_1_1;
     } else {
         assert(false);
     }
-
-    free(version_cstring);
 
     return result;
 }

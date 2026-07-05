@@ -142,3 +142,10 @@ bool string_is_equal(string a, string b)
 {
     return string_starts_at(a, b) == 0 && a.count == b.count;
 }
+
+bool string_is_equal_cstring(string a, const char *b)
+{
+    string b_string = string_from_cstring((char *) b);
+
+    return string_starts_at(a, b_string) == 0 && a.count == b_string.count;
+}

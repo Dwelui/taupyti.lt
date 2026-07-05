@@ -24,5 +24,6 @@ void string_array_free(string_array array);
 
 size_t string_starts_at(string str, string substr);
 bool string_is_equal(string a, string b);
+bool string_is_equal_cstring(string a, const char *b);
 
 #endif // STRING_H
