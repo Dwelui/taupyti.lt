@@ -158,7 +158,7 @@ int boot(const Routes *routes)
         }
 
         size_t response_body_len = file_length * sizeof(char);
-        char *response_body = malloc(response_body_len);
+        char *response_body = malloc(response_body_len + 1);
         ssize_t file_len = read(file_fd, response_body, response_body_len);
         if (file_len == -1) {
             perror("read file");
