@@ -9,8 +9,10 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
-    // TODO: The standard says that lines are seperated by \r\n
     string_array request_rows = string_split(string_from_cstring(req_buf), "\n");
+    for (size_t i = 0; i < request_rows.count; i++) {
+        string_trim(&request_rows.items[i]);
+    }
 
     string_array request_line_components = string_split(request_rows.items[0], " ");
     string_array_free(request_rows);
@@ -130,8 +132,6 @@ char *http_request_method_to_string(HttpMethod method)
 
 HttpVersion http_request_string_to_version(string version)
 {
-    printf("http version matches: %d\n", string_is_equal_cstring(version, "HTTP/1.1"));
-
     HttpVersion result;
     if (string_is_equal_cstring(version, "HTTP/1.1")) {
         result = HTTP_VERSION_1_1;
