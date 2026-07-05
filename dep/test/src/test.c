@@ -53,7 +53,7 @@ void test_string_is_equal(TestCaseOutput *output, const char *expected, const ch
 {
     char message[OUTPUT_MESSAGE_SIZE] = { 0 };
     if (strcmp(expected, actual) != 0) {
-        sprintf(message, "expected: %s, actual: %s", expected, actual);
+        sprintf(message, "expected: |%s|, actual: |%s|", expected, actual);
         test_fail(output, message);
     }
 }
