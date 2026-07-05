@@ -184,6 +184,29 @@ void test_string_is_equal_returns_false_with_different_strings(TestCaseOutput *o
     test_is_false(output, is_same);
 }
 
+void test_string_trim_with_string_from_cstring(TestCaseOutput *output)
+{
+    string a = string_from_cstring("  Hello  ");
+
+    string_trim(&a);
+
+    test_cstring_is_equal_to_string(output, "Hello", a);
+}
+
+void test_string_trim_with_string_from_data(TestCaseOutput *output)
+{
+    size_t a = 5;
+    char *a_data = malloc(sizeof(char) * a);
+    memcpy(a_data, "Hello", a);
+    string a_string = string_from_data(a_data, a);
+
+    string_trim(&a_string);
+
+    test_cstring_is_equal_to_string(output, "Hello", a_string);
+
+    free(a_data);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -200,6 +223,8 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_starts_at_returns_correct_position_with_substr_from_data),
     TEST_CASE_REGISTER(test_string_is_equal_returns_true_with_same_strings),
     TEST_CASE_REGISTER(test_string_is_equal_returns_false_with_different_strings),
+    TEST_CASE_REGISTER(test_string_trim_with_string_from_cstring),
+    TEST_CASE_REGISTER(test_string_trim_with_string_from_data),
 };
 
 

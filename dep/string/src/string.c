@@ -149,3 +149,54 @@ bool string_is_equal_cstring(string a, const char *b)
 
     return string_is_equal(a, b_string);
 }
+
+void string_trim_start(string *str)
+{
+    const char *trimmable_characters = "\n\r ";
+
+    bool is_trimmable_character = false;
+    for (size_t i = 0; i < str->count; i++) {
+        for (size_t y = 0; y < strlen(trimmable_characters); y++) {
+            if (str->data[i] == trimmable_characters[y]) {
+                is_trimmable_character = true;
+                break;
+            }
+        }
+
+        if (is_trimmable_character == false) {
+            str->data += i;
+            str->count -= i;
+            return;
+        }
+
+        is_trimmable_character = false;
+    }
+}
+
+void string_trim_end(string *str)
+{
+    const char *trimmable_characters = "\n\r ";
+
+    bool is_trimmable_character = false;
+    for (size_t i = str->count - 1; i > 0; i--) {
+        for (size_t y = 0; y < strlen(trimmable_characters); y++) {
+            if (str->data[i] == trimmable_characters[y] || str->data[i] == '\0') {
+                is_trimmable_character = true;
+                break;
+            }
+        }
+
+        if (is_trimmable_character == false) {
+            str->count -= str->count - i - 1;
+            return;
+        }
+
+        is_trimmable_character = false;
+    }
+}
+
+void string_trim(string *str)
+{
+    string_trim_start(str);
+    string_trim_end(str);
+}
