@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-HttpRequest *request_create(char *req_buf, size_t req_len)
+Request *request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
@@ -17,7 +17,7 @@ HttpRequest *request_create(char *req_buf, size_t req_len)
     string_array request_line_components = string_split(request_rows.items[0], " ");
     string_array_free(request_rows);
 
-    HttpRequest *request = malloc(sizeof(HttpRequest));
+    Request *request = malloc(sizeof(Request));
     request->method = request_string_to_method(request_line_components.items[0]);
     request->url = request_line_components.items[1];
     request->version = request_string_to_version(request_line_components.items[2]);
@@ -35,19 +35,19 @@ HttpRequest *request_create(char *req_buf, size_t req_len)
     return request;
 }
 
-void request_free(HttpRequest *req)
+void request_free(Request *req)
 {
     free(req);
 }
 
-string request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
+string request_find_query_value_by_name_cstring(const Request *req, const char *name)
 {
     string name_string = string_from_cstring((char *)name);
 
     return request_find_query_value_by_name(req, name_string);
 }
 
-string request_find_query_value_by_name(const HttpRequest *req, string name)
+string request_find_query_value_by_name(const Request *req, string name)
 {
     string result = string_empty();
 

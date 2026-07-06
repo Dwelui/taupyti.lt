@@ -38,7 +38,7 @@ ssize_t get_root_dir(char* buf, size_t len)
     return (ssize_t)last_slash_position;
 }
 
-void print_formatted_request_line(const HttpRequest *req, const struct addrinfo *req_addr)
+void print_formatted_request_line(const Request *req, const struct addrinfo *req_addr)
 {
     (void)req_addr;
 
@@ -127,7 +127,7 @@ int boot(const Routes *routes)
             printf("recv: connection closed");
         }
 
-        const HttpRequest *request = request_create(req_msg, sizeof(req_msg));
+        const Request *request = request_create(req_msg, sizeof(req_msg));
         print_formatted_request_line(request, &req_addr);
 
         HttpResponse *response = malloc(sizeof(HttpResponse));

@@ -25,13 +25,13 @@ typedef struct {
     string query;
     string path;
     string url;
-} HttpRequest;
+} Request;
 
-HttpRequest *request_create(char *req_buf, size_t req_len);
-void request_free(HttpRequest *req);
+Request *request_create(char *req_buf, size_t req_len);
+void request_free(Request *req);
 
-string request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name);
-string request_find_query_value_by_name(const HttpRequest *req, string name);
+string request_find_query_value_by_name_cstring(const Request *req, const char *name);
+string request_find_query_value_by_name(const Request *req, string name);
 
 HttpMethod request_string_to_method(string method);
 char *request_method_to_string(HttpMethod method);
