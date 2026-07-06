@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-HttpRequest *http_request_create(char *req_buf, size_t req_len)
+HttpRequest *request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
@@ -18,9 +18,9 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     string_array_free(request_rows);
 
     HttpRequest *request = malloc(sizeof(HttpRequest));
-    request->method = http_request_string_to_method(request_line_components.items[0]);
+    request->method = request_string_to_method(request_line_components.items[0]);
     request->url = request_line_components.items[1];
-    request->version = http_request_string_to_version(request_line_components.items[2]);
+    request->version = request_string_to_version(request_line_components.items[2]);
     string_array_free(request_line_components);
 
     string_array path_and_query = string_split(request->url, "?");
@@ -35,19 +35,19 @@ HttpRequest *http_request_create(char *req_buf, size_t req_len)
     return request;
 }
 
-void http_request_free(HttpRequest *req)
+void request_free(HttpRequest *req)
 {
     free(req);
 }
 
-string http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
+string request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name)
 {
     string name_string = string_from_cstring((char *)name);
 
-    return http_request_find_query_value_by_name(req, name_string);
+    return request_find_query_value_by_name(req, name_string);
 }
 
-string http_request_find_query_value_by_name(const HttpRequest *req, string name)
+string request_find_query_value_by_name(const HttpRequest *req, string name)
 {
     string result = string_empty();
 
@@ -76,7 +76,7 @@ string http_request_find_query_value_by_name(const HttpRequest *req, string name
     return result;
 }
 
-HttpMethod http_request_string_to_method(string method)
+HttpMethod request_string_to_method(string method)
 {
     char *method_cstring = string_to_cstring(method);
 
@@ -106,7 +106,7 @@ HttpMethod http_request_string_to_method(string method)
     return result;
 }
 
-char *http_request_method_to_string(HttpMethod method)
+char *request_method_to_string(HttpMethod method)
 {
     switch (method) {
         case HTTP_METHOD_GET:
@@ -130,7 +130,7 @@ char *http_request_method_to_string(HttpMethod method)
     }
 }
 
-HttpVersion http_request_string_to_version(string version)
+HttpVersion request_string_to_version(string version)
 {
     HttpVersion result;
     if (string_is_equal_cstring(version, "HTTP/1.1")) {
@@ -142,7 +142,7 @@ HttpVersion http_request_string_to_version(string version)
     return result;
 }
 
-char *http_request_version_to_string(HttpVersion version)
+char *request_version_to_string(HttpVersion version)
 {
     switch (version) {
         case HTTP_VERSION_1_1:

@@ -45,9 +45,9 @@ void print_formatted_request_line(const HttpRequest *req, const struct addrinfo 
     printf(
         "[%s] %s %s %s %s\n",
         "2026-06-15 18:54:35",
-        http_request_method_to_string(req->method),
+        request_method_to_string(req->method),
         string_to_cstring(req->url),
-        http_request_version_to_string(req->version),
+        request_version_to_string(req->version),
         "<ip address>"// req_addr.ai_addr->sa_data
     );
 }
@@ -127,7 +127,7 @@ int boot(const Routes *routes)
             printf("recv: connection closed");
         }
 
-        const HttpRequest *request = http_request_create(req_msg, sizeof(req_msg));
+        const HttpRequest *request = request_create(req_msg, sizeof(req_msg));
         print_formatted_request_line(request, &req_addr);
 
         HttpResponse *response = malloc(sizeof(HttpResponse));

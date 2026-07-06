@@ -27,16 +27,16 @@ typedef struct {
     string url;
 } HttpRequest;
 
-HttpRequest *http_request_create(char *req_buf, size_t req_len);
-void http_request_free(HttpRequest *req);
+HttpRequest *request_create(char *req_buf, size_t req_len);
+void request_free(HttpRequest *req);
 
-string http_request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name);
-string http_request_find_query_value_by_name(const HttpRequest *req, string name);
+string request_find_query_value_by_name_cstring(const HttpRequest *req, const char *name);
+string request_find_query_value_by_name(const HttpRequest *req, string name);
 
-HttpMethod http_request_string_to_method(string method);
-char *http_request_method_to_string(HttpMethod method);
+HttpMethod request_string_to_method(string method);
+char *request_method_to_string(HttpMethod method);
 
-HttpVersion http_request_string_to_version(string version);
-char *http_request_version_to_string(HttpVersion version);
+HttpVersion request_string_to_version(string version);
+char *request_version_to_string(HttpVersion version);
 
 #endif // REQUEST_H
