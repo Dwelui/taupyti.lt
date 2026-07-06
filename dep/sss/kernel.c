@@ -1,3 +1,4 @@
+#include <iso646.h>
 #include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -131,7 +132,15 @@ int boot(const Routes *routes)
         print_formatted_request_line(request, &req_addr);
 
         Response *response = malloc(sizeof(Response));
-        route_request(routes, request, response);
+        if (route_request(routes, request, response) != 0) {
+            char *not_found_response = "HTTP/1.1 404 Not Found\r\n\r\n";
+            ssize_t response_bytes_sent = send(req_sockfd, not_found_response, strlen(not_found_response), 0);
+
+            printf("%s", not_found_response);
+
+            close(req_sockfd);
+            continue;
+        }
 
         char file_path[1024];
         len = snprintf(file_path, sizeof(file_path), "%s/%s", templates_dir, response->template_path);
@@ -149,6 +158,7 @@ int boot(const Routes *routes)
         char response_header[1024];
         len = snprintf(response_header, sizeof(response_header), "HTTP/1.1 200 OK\r\nContent-Length: %zu\r\n\r\n", file_length);
         response_header[len] = '\0';
+        printf("%s", response_header);
         ssize_t response_bytes_sent = send(req_sockfd, response_header, strlen(response_header), 0);
         if (response_bytes_sent == -1) {
             perror("send");

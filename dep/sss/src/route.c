@@ -18,7 +18,8 @@ int route_request(const Routes *routes, const Request *req, Response *res)
         }
 
         route.handler(req, res);
+        return 0;
     }
 
-    return 0;
+    return -1;
 }
