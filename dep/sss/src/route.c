@@ -1,7 +1,7 @@
 #include "route.h"
 #include <string.h>
 
-int route_request(const Routes *routes, const Request *req, HttpResponse *res)
+int route_request(const Routes *routes, const Request *req, Response *res)
 {
     char *path = string_to_cstring(req->path);
 

@@ -130,7 +130,7 @@ int boot(const Routes *routes)
         const Request *request = request_create(req_msg, sizeof(req_msg));
         print_formatted_request_line(request, &req_addr);
 
-        HttpResponse *response = malloc(sizeof(HttpResponse));
+        Response *response = malloc(sizeof(Response));
         route_request(routes, request, response);
 
         char file_path[1024];

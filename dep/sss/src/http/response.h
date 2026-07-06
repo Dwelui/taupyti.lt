@@ -3,6 +3,6 @@
 
 typedef struct {
     char *template_path;
-} HttpResponse;
+} Response;
 
 #endif // RESPONSE_H

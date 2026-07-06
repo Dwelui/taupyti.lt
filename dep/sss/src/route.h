@@ -4,7 +4,7 @@
 #include "http/request.h"
 #include "http/response.h"
 
-typedef int (*RouteHandler)(const Request *req, HttpResponse *res);
+typedef int (*RouteHandler)(const Request *req, Response *res);
 
 typedef struct {
     HttpMethod method;
@@ -17,6 +17,6 @@ typedef struct {
     size_t count;
 } Routes;
 
-int route_request(const Routes *routes, const Request *req, HttpResponse *res);
+int route_request(const Routes *routes, const Request *req, Response *res);
 
 #endif // ROUTE_H
