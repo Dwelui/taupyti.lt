@@ -3,6 +3,7 @@
 
 #include <curses.h>
 #include "../../../string/src/string.h"
+#include "../variable.h"
 
 typedef enum {
     HTTP_VERSION_1_1,
@@ -32,6 +33,8 @@ void request_free(Request *req);
 
 string request_find_query_value_by_name_cstring(const Request *req, const char *name);
 string request_find_query_value_by_name(const Request *req, string name);
+
+Variable *request_body_get(const Request *req, const char *name);
 
 HttpMethod request_string_to_method(string method);
 char *request_method_to_string(HttpMethod method);
