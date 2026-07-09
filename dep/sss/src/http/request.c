@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdio.h>
 
+// TODO: make a req_buf copy and save it in Request, to make it easier to manage memory and avoid side effects.
+// Use string_clone or string_copy
 Request *request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
