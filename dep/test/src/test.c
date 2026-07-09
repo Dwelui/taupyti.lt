@@ -6,7 +6,7 @@
 
 int test_run_tests(const char *name, TestCase *tests, size_t count)
 {
-    printf("Running %s tests...\n", name);
+    printf("\nRunning %s tests...\n", name);
 
     int status = 0;
     TestCaseOutput *output = malloc(sizeof(TestCaseOutput));
