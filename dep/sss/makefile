@@ -32,10 +32,13 @@ build/libtest.a: | build_dir
 build/test_request.o: tests/unit/http/test_request.c | build_dir
 	@gcc $(CFLAGS) -c $< -o $@
 
+build/test_request_variable.o: tests/integration/test_request_variable.c | build_dir
+	@gcc $(CFLAGS) -c $< -o $@
+
 build/tests.o: tests/main.c | build_dir
 	@gcc $(CFLAGS) -c $< -o $@
 
-tests: build/tests.o build/test_request.o build/libsss.a build/libtest.a build/libstring.a
+tests: build/tests.o build/test_request.o build/test_request_variable.o build/libsss.a build/libtest.a build/libstring.a
 	@gcc $(CFLAGS) $^ -o build/tests
 
 test: tests
