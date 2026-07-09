@@ -1,5 +1,6 @@
 #include "../../test/src/test.h"
 #include "tests.h"
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,4 +44,10 @@ char *file_read(const char *path)
     close(file_fd);
 
     return buf;
+}
+
+Request *requestFromFixturePath(const char *path)
+{
+    char *input = file_read(path);
+    return request_create(input, sizeof(input));
 }

@@ -4,8 +4,7 @@
 
 void test_request_get_variable_from_body(TestCaseOutput *output)
 {
-    char *input = file_read("tests/fixtures/http/valid_get_1.http");
-    Request *request = request_create(input, sizeof(input));
+    Request *request = requestFromFixturePath("tests/fixtures/http/valid_get_1.http");
 
     Variable *nameVar = request_body_get(request, "name");
     string name = string_empty();
