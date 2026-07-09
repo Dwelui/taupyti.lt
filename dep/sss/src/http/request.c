@@ -42,42 +42,6 @@ void request_free(Request *req)
     free(req);
 }
 
-string request_find_query_value_by_name_cstring(const Request *req, const char *name)
-{
-    string name_string = string_from_cstring((char *)name);
-
-    return request_find_query_value_by_name(req, name_string);
-}
-
-string request_find_query_value_by_name(const Request *req, string name)
-{
-    string result = string_empty();
-
-    if (req->query.count == 0) {
-        return result;
-    }
-
-    string_array parameters = string_split(req->query, "&");
-    string_array key_and_value;
-    for (size_t i = 0; i < parameters.count; i++) {
-        key_and_value = string_split(parameters.items[i], "=");
-        if (
-            key_and_value.count == 2 &&
-            string_is_equal(key_and_value.items[0], name)
-        ) {
-            result = key_and_value.items[1];
-            break;
-        }
-
-        string_array_free(key_and_value);
-    }
-
-    string_array_free(key_and_value);
-    string_array_free(parameters);
-
-    return result;
-}
-
 HttpMethod request_string_to_method(string method)
 {
     char *method_cstring = string_to_cstring(method);
