@@ -4,7 +4,6 @@
 #include "../../test/src/test.h"
 #include "../src/http/request.h"
 
-char *file_read(const char *path);
 Request *requestFromFixturePath(const char *path);
 
 // ------------------------- UNIT --------------------------------
