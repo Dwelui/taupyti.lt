@@ -81,8 +81,7 @@ variable *request_body_get(const Request *req, const char *name)
     for (size_t i = 0; i < variableKeyAndValueMap.count; i++) {
         keyAndValue = string_split(variableKeyAndValueMap.items[i], "=");
         if (string_is_equal_cstring(keyAndValue.items[0], name)) {
-            result = malloc(sizeof(variable));
-            result->raw = keyAndValue.items[1];
+            result = variable_create(keyAndValue.items[1]);
             string_array_free(keyAndValue);
             break;
         }

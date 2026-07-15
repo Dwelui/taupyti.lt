@@ -1,5 +1,19 @@
 #include "variable.h"
-#include <stdio.h>
+#include <stdlib.h>
+
+variable *variable_create(string string)
+{
+    variable *result = malloc(sizeof(variable));
+    result->raw.data = string.data;
+    result->raw.count = string.count;
+
+    return result;
+}
+
+void variable_free(variable *variable)
+{
+    free(variable);
+}
 
 bool variable_string(const variable *var, string *string)
 {
