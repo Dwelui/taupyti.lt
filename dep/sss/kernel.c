@@ -135,6 +135,7 @@ int boot(const Routes *routes)
         if (route_request(routes, request, response) != 0) {
             char *not_found_response = "HTTP/1.1 404 Not Found\r\n\r\n";
             ssize_t response_bytes_sent = send(req_sockfd, not_found_response, strlen(not_found_response), 0);
+            (void)response_bytes_sent;
 
             printf("%s", not_found_response);
 
