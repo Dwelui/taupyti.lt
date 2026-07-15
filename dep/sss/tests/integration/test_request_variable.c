@@ -4,7 +4,7 @@
 
 void test_request_get_variable_from_body(TestCaseOutput *output)
 {
-    Request *request = requestFromFixturePath("tests/fixtures/http/valid_get_1.http");
+    Request *request = requestFromFixturePath("tests/fixtures/http/valid_post_form_1_urlencoded.http");
 
     Variable *nameVar = request_body_get(request, "name");
     string name = string_empty();
