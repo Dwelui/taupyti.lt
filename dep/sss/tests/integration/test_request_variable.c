@@ -15,7 +15,18 @@ void test_request_get_variable_from_body(TestCaseOutput *output)
     }
 
     test_cstring_is_equal_to_string(output, "bar", name);
+    variable_free(fooVariable);
+
+    variable *xVariable = request_body_get(request, "x");
+    test_is_null(output, xVariable, "failed to find 'x' variable");
+
+    string x = string_empty();
+    if (variable_string(xVariable, &x) == false) {
+        test_fail(output, "failed to get 'x' value");
+    }
+
+    test_cstring_is_equal_to_string(output, "1", x);
+    variable_free(xVariable);
 
     request_free(request);
-    variable_free(fooVariable);
 }

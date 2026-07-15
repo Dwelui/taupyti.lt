@@ -82,11 +82,12 @@ variable *request_body_get(const Request *req, const char *name)
         keyAndValue = string_split(variableKeyAndValueMap.items[i], "=");
         if (string_is_equal_cstring(keyAndValue.items[0], name)) {
             result = variable_create(keyAndValue.items[1]);
-            string_array_free(keyAndValue);
             break;
         }
+        string_array_free(keyAndValue);
     }
 
+    string_array_free(keyAndValue);
     string_array_free(variableKeyAndValueMap);
 
     return result;
