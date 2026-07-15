@@ -5,13 +5,19 @@
 #include <string.h>
 #include <stdio.h>
 
-// TODO: make a req_buf copy and save it in Request, to make it easier to manage memory and avoid side effects.
-// Use string_clone or string_copy
 Request *request_create(char *req_buf, size_t req_len)
 {
     (void)req_len;
 
-    string_array request_rows = string_split(string_from_cstring(req_buf), "\n");
+    size_t requestBufferLength = strlen(req_buf);
+    char *requestBufferClone = malloc(requestBufferLength + 1);
+    memset(requestBufferClone, 0, requestBufferLength + 1);
+    memcpy(requestBufferClone, req_buf, requestBufferLength);
+
+    Request *request = malloc(sizeof(Request));
+    request->raw = string_from_cstring(requestBufferClone);
+
+    string_array request_rows = string_split(request->raw, "\n");
     for (size_t i = 0; i < request_rows.count; i++) {
         string_trim(&request_rows.items[i]);
     }
@@ -19,7 +25,6 @@ Request *request_create(char *req_buf, size_t req_len)
     string_array request_line_components = string_split(request_rows.items[0], " ");
     string_array_free(request_rows);
 
-    Request *request = malloc(sizeof(Request));
     request->method = request_string_to_method(request_line_components.items[0]);
     request->url = request_line_components.items[1];
     request->version = request_string_to_version(request_line_components.items[2]);
@@ -39,6 +44,7 @@ Request *request_create(char *req_buf, size_t req_len)
 
 void request_free(Request *req)
 {
+    free(req->raw.data);
     free(req);
 }
 

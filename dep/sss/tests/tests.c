@@ -51,6 +51,6 @@ Request *requestFromFixturePath(const char *path)
     char *input = file_read(path);
     Request *result = request_create(input, sizeof(input));
 
-    // free(input);
+    free(input);
     return result;
 }

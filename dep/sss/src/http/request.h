@@ -21,6 +21,7 @@ typedef enum {
 } HttpMethod;
 
 typedef struct {
+    string raw;
     HttpVersion version;
     HttpMethod method;
     string query;
