@@ -27,6 +27,8 @@ typedef struct {
     string query;
     string path;
     string url;
+    string headers;
+    string body;
 } Request;
 
 Request *request_create(char *req_buf, size_t req_len);

@@ -39,6 +39,25 @@ Request *request_create(char *req_buf, size_t req_len)
     }
     string_array_free(path_and_query);
 
+    ssize_t requestLineEndPosition = string_starts_at(request->raw, string_from_cstring("\r\n"));
+    if (requestLineEndPosition == -1) {
+        requestLineEndPosition = string_starts_at(request->raw, string_from_cstring("\n"));
+    }
+    size_t headerStartPosition = requestLineEndPosition + 1;
+
+    ssize_t headerEndPosition = string_starts_at(request->raw, string_from_cstring("\r\n\r\n"));
+    if (headerEndPosition == -1) {
+        headerEndPosition = string_starts_at(request->raw, string_from_cstring("\n\n"));
+    }
+
+    size_t bodyStartPosition = headerEndPosition + 1;
+
+    // printf("request raw: %s \n", request->raw.data);
+    printf("headerStartPosition: %ld \n", headerStartPosition);
+    printf("headerEndPosition: %ld \n", headerEndPosition);
+    printf("bodyStartPosition: %ld \n", bodyStartPosition);
+    printf("bodyEndPosition: %ld \n", request->raw.count);
+
     return request;
 }
 
