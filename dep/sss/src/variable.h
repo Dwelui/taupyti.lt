@@ -4,7 +4,7 @@
 #include "../../string/src/string.h"
 
 typedef struct {
-    string rawData;
+    string raw;
 } Variable;
 
 bool variable_string(const Variable *var, string *string);

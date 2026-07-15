@@ -1,8 +1,14 @@
 #include "variable.h"
+#include <stdio.h>
 
 bool variable_string(const Variable *var, string *string)
 {
-    string = NULL;
+    if (var == NULL) {
+        return false;
+    }
 
-    return false;
+    string->data = var->raw.data;
+    string->count = var->raw.count;
+
+    return true;
 }
