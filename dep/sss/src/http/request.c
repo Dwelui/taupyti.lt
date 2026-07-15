@@ -42,6 +42,11 @@ void request_free(Request *req)
     free(req);
 }
 
+Variable *request_body_get(const Request *req, const char *name)
+{
+    return NULL;
+}
+
 HttpMethod request_string_to_method(string method)
 {
     char *method_cstring = string_to_cstring(method);

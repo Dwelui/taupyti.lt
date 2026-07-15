@@ -7,6 +7,6 @@ typedef struct {
     string rawData;
 } Variable;
 
-bool variableString(Variable *var, string *string);
+bool variable_string(const Variable *var, string *string);
 
 #endif // VARIABLE_H
