@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdio.h>
 
 typedef struct {
     char *data;
@@ -22,7 +23,7 @@ char *string_to_cstring(string str);
 string_array string_split(string str, const char *delimiter);
 void string_array_free(string_array array);
 
-size_t string_starts_at(string str, string substr);
+ssize_t string_starts_at(string str, string substr);
 bool string_is_equal(string a, string b);
 bool string_is_equal_cstring(string a, const char *b);
 

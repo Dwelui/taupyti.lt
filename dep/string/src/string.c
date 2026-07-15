@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 string string_empty()
 {
@@ -111,9 +112,9 @@ void string_array_free(string_array array)
 }
 
 
-size_t string_starts_at(string str, string substr)
+ssize_t string_starts_at(string str, string substr)
 {
-    size_t position = -1;
+    ssize_t position = -1;
 
     if (str.count < substr.count) {
         return position;
