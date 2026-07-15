@@ -72,16 +72,16 @@ void request_free(Request *req)
     free(req);
 }
 
-Variable *request_body_get(const Request *req, const char *name)
+variable *request_body_get(const Request *req, const char *name)
 {
-    Variable *result = NULL;
+    variable *result = NULL;
 
     string_array variableKeyAndValueMap = string_split(req->body, "&");
     string_array keyAndValue;
     for (size_t i = 0; i < variableKeyAndValueMap.count; i++) {
         keyAndValue = string_split(variableKeyAndValueMap.items[i], "=");
         if (string_is_equal_cstring(keyAndValue.items[0], name)) {
-            result = malloc(sizeof(Variable));
+            result = malloc(sizeof(variable));
             result->raw = keyAndValue.items[1];
             string_array_free(keyAndValue);
             break;

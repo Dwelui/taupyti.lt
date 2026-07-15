@@ -34,7 +34,7 @@ typedef struct {
 Request *request_create(char *req_buf, size_t req_len);
 void request_free(Request *req);
 
-Variable *request_body_get(const Request *req, const char *name);
+variable *request_body_get(const Request *req, const char *name);
 
 HttpMethod request_string_to_method(string method);
 char *request_method_to_string(HttpMethod method);

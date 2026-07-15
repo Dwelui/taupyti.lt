@@ -1,7 +1,7 @@
 #include "variable.h"
 #include <stdio.h>
 
-bool variable_string(const Variable *var, string *string)
+bool variable_string(const variable *var, string *string)
 {
     if (var == NULL) {
         return false;

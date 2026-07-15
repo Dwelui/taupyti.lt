@@ -5,8 +5,8 @@
 
 typedef struct {
     string raw;
-} Variable;
+} variable;
 
-bool variable_string(const Variable *var, string *string);
+bool variable_string(const variable *var, string *string);
 
 #endif // VARIABLE_H
