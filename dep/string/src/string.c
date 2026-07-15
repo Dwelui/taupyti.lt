@@ -219,3 +219,18 @@ void string_trim(string *str)
     string_trim_start(str);
     string_trim_end(str);
 }
+
+string string_substring(string str, size_t start, size_t end)
+{
+    string result;
+
+    result.data = str.data += start;
+    result.count = str.count - start;
+    if (end == 0) {
+        return result;
+    }
+
+    result.count -= str.count - end;
+
+    return result;
+}

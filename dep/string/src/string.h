@@ -31,4 +31,7 @@ void string_trim_start(string *str);
 void string_trim_end(string *str);
 void string_trim(string *str);
 
+// Passing 0 to `end` takes the `end` of string for substring.
+string string_substring(string str, size_t start, size_t end);
+
 #endif // STRING_H
