@@ -52,27 +52,16 @@ Request *request_create(char *req_buf, size_t req_len)
 
     size_t bodyStartPosition = headerEndPosition + 1;
 
-    // printf("request raw: %s \n", request->raw.data);
     request->headers = string_substring(request->raw, headerStartPosition, headerEndPosition);
     string_trim(&request->headers);
-    // printf("headerStartPosition: %ld |%d|\n", headerStartPosition, request->raw.data[headerStartPosition]);
-    // printf("headerEndPosition: %ld |%d|\n", headerEndPosition, request->raw.data[headerEndPosition]);
-    // printf("------------------------------------------------------- \n");
-    // printf("headers: \n%s\n", string_to_cstring(request->headers));
-    // printf("------------------------------------------------------- \n");
 
     size_t bodyEndPosition = request->raw.count;
     if (bodyEndPosition - bodyStartPosition <= 4) {
         request->body = string_empty();
     } else {
         request->body = string_substring(request->raw, bodyStartPosition, request->raw.count);
+        string_trim(&request->body);
     }
-    string_trim(&request->body);
-    // printf("bodyStartPosition: %ld |%d|\n", bodyStartPosition, request->raw.data[bodyStartPosition]);
-    // printf("bodyEndPosition: %ld |%d|\n", request->raw.count, request->raw.data[bodyStartPosition]);
-    // printf("------------------------------------------------------- \n");
-    // printf("body: \n%s\n", string_to_cstring(request->body));
-    // printf("------------------------------------------------------- \n");
 
     return request;
 }
