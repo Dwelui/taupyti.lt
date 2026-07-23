@@ -9,12 +9,12 @@ void test_request_get_variable_from_body(TestCaseOutput *output)
     variable *fooVariable = request_body_get(request, "foo");
     test_is_null(output, fooVariable, "failed to find 'foo' variable");
 
-    string name = string_empty();
-    if (variable_string(fooVariable, &name) == false) {
-        test_fail(output, "failed to get 'bar' value");
+    string foo = string_empty();
+    if (variable_string(fooVariable, &foo) == false) {
+        test_fail(output, "failed to get 'foo' value");
     }
 
-    test_cstring_is_equal_to_string(output, "bar", name);
+    test_cstring_is_equal_to_string(output, "bar", foo);
     variable_free(fooVariable);
 
     variable *xVariable = request_body_get(request, "x");
