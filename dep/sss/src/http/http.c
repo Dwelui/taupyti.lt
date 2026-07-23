@@ -20,7 +20,7 @@ void print_formatted_request_line(const Request *req)
     );
 }
 
-bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory)
+bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory, Response *response)
 {
     char req_msg[1024];
     ssize_t req_bytes_received = recv(request_socketfd, req_msg, sizeof(req_msg), 0);
@@ -34,9 +34,7 @@ bool http_handle(int request_socketfd, const Routes *routes, const char *templat
     const Request *request = request_create(req_msg, sizeof(req_msg));
     print_formatted_request_line(request);
 
-    // INFO: Extract request/response lifecycle into testable method.
-    // You can pass request socket to it or other handler and send the response through tcp or testing env.
-    Response *response = response_create();
+    response = response_create();
     if (route_request(routes, request, response) != 0) {
         char *not_found_response = "HTTP/1.1 404 Not Found\r\n\r\n";
         ssize_t response_bytes_sent = send(request_socketfd, not_found_response, strlen(not_found_response), 0);

@@ -104,7 +104,7 @@ int boot(const Routes *routes)
             exit(EXIT_FAILURE);
         }
 
-        http_handle(request_socketfd, routes, templates_directory);
+        http_handle(request_socketfd, routes, templates_directory, NULL);
 
         close(request_socketfd);
     }
