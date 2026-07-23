@@ -8,7 +8,13 @@ clear:
 build_dir:
 	@mkdir -p build
 
-build/http.o: src/http/request.c | build_dir
+build/http.o: src/http/http.c | build_dir
+	@gcc $(CFLAGS) -c $< -o $@
+
+build/request.o: src/http/request.c | build_dir
+	@gcc $(CFLAGS) -c $< -o $@
+
+build/response.o: src/http/response.c | build_dir
 	@gcc $(CFLAGS) -c $< -o $@
 
 build/route.o: src/route.c | build_dir
@@ -24,7 +30,7 @@ build/libstring.a: | build_dir
 	@make -C ../string
 	@cp ../string/build/libstring.a build/libstring.a
 
-build/libsss.a: build/libstring.a build/http.o build/route.o build/variable.o build/kernel.o | build_dir
+build/libsss.a: build/libstring.a build/http.o build/request.o build/response.o build/route.o build/variable.o build/kernel.o | build_dir
 	@ar rcs $@ $^
 
 ##### Tests #####
