@@ -45,16 +45,16 @@ char *string_to_cstring(string str)
     return result;
 }
 
-string_array string_array_create(size_t count)
+string_array string_array_create(size_t capacity)
 {
     string_array result = {
         .items = NULL,
         .count = 0,
     };
 
-    if (count > 0) {
-        result.items = malloc(sizeof(string) * count);
-        result.capacity = count;
+    if (capacity > 0) {
+        result.items = malloc(sizeof(string) * capacity);
+        result.capacity = capacity;
     }
 
     return result;
