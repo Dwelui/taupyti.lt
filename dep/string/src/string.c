@@ -33,6 +33,34 @@ string string_from_cstring(char *data)
     return string_from_data(data, strlen(data));
 }
 
+string string_from_int(int data)
+{
+    int temp = data;
+    size_t digit_count = 0;
+    while (temp >= 1) {
+        temp /= 10;
+        digit_count++;
+    }
+
+    string result = {
+        .data = malloc(sizeof(char) * digit_count + 1),
+        .count = digit_count,
+    };
+    result.data[digit_count] = '\0';
+
+    while (digit_count > 0) {
+        result.data[--digit_count] = 48 + data % 10;
+        data /= 10;
+    }
+
+    return result;
+}
+
+void string_free(string *str)
+{
+    free(str->data);
+}
+
 char *string_to_cstring(string str)
 {
     char *result = malloc(str.count + 1);

@@ -248,6 +248,17 @@ void test_string_trim_no_trim(TestCaseOutput *output)
     test_cstring_is_equal_to_string(output, "Hello", a);
 }
 
+void test_string_from_int(TestCaseOutput *output)
+{
+    int data = 12321;
+
+    string actual = string_from_int(data);
+
+    test_cstring_is_equal_to_string(output, "12321", actual);
+
+    string_free(&actual);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -270,6 +281,7 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_trim_with_all_white_space_from_cstring),
     TEST_CASE_REGISTER(test_string_trim_with_all_white_space_from_data),
     TEST_CASE_REGISTER(test_string_trim_no_trim),
+    TEST_CASE_REGISTER(test_string_from_int),
 };
 
 

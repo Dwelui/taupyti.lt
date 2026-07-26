@@ -19,6 +19,10 @@ typedef struct {
 string string_empty();
 string string_from_data(char* data, size_t count);
 string string_from_cstring(char *data);
+string string_from_int(int data);
+
+void string_free(string *str);
+
 char *string_to_cstring(string str);
 
 string_array string_array_create(size_t capacity);
