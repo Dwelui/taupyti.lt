@@ -4,10 +4,8 @@
 #include "request.h"
 
 typedef struct {
-    string raw;
-
     HttpVersion protocol;
-    HttpMethod status_code;
+    int status_code;
     string reason_phrase;
 
     char *template_path;
@@ -15,5 +13,7 @@ typedef struct {
 
 Response *response_create();
 void response_free(Response *res);
+
+string response_to_string(const Response *res);
 
 #endif // RESPONSE_H
