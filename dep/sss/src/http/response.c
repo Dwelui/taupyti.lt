@@ -20,7 +20,7 @@ void response_free(Response *res)
 
 string response_to_string(const Response *res)
 {
-    string_array status_line = string_array_create();
+    string_array status_line = string_array_create(4);
 
     string protocol_version = request_version_to_string(res->protocol);
     string_array_push(status_line, protocol_version);
