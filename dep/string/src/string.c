@@ -1,4 +1,5 @@
 #include "string.h"
+#include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -60,6 +61,20 @@ string_array string_array_create(size_t capacity)
     return result;
 }
 
+void string_array_free(string_array array)
+{
+    free(array.items);
+}
+
+void string_array_push(string_array *str_array, string str)
+{
+    // TODO: expand string_array to fit more.
+    assert(str_array->count < str_array->capacity);
+
+    str_array->items[str_array->count] = str;
+    str_array->count++;
+}
+
 string_array string_split(string str, const char *delimiter)
 {
     size_t delimiter_len = strlen(delimiter);
@@ -84,7 +99,6 @@ string_array string_split(string str, const char *delimiter)
 
     size_t current_string_start = 0;
     size_t current_string_len = 0;
-    int string_count = 0;
     for (size_t i = 0; i < str.count; i++) {
         delimeter_matches = true;
         for (size_t y = 0; y < delimiter_len && i + y < str.count; y++) {
@@ -101,25 +115,18 @@ string_array string_split(string str, const char *delimiter)
             }
             current_string_len = i - current_string_start;
 
-            result.items[string_count] = string_from_data(str.data + current_string_start, current_string_len);
+            string_array_push(&result, string_from_data(str.data + current_string_start, current_string_len));
 
-            string_count++;
             current_string_start += current_string_len + delimiter_len;
         }
     }
 
     if (current_string_start < str.count) {
-        result.items[string_count] = string_from_data(str.data + current_string_start, str.count - current_string_start);
+        string_array_push(&result, string_from_data(str.data + current_string_start, str.count - current_string_start));
     }
 
     return result;
 }
-
-void string_array_free(string_array array)
-{
-    free(array.items);
-}
-
 
 ssize_t string_starts_at(string str, string substr)
 {
