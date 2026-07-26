@@ -20,7 +20,7 @@ void print_formatted_request_line(const Request *req)
     );
 }
 
-bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory, Response *response)
+bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory)
 {
     char req_msg[1024];
     ssize_t req_bytes_received = recv(request_socketfd, req_msg, sizeof(req_msg), 0);
@@ -34,7 +34,7 @@ bool http_handle(int request_socketfd, const Routes *routes, const char *templat
     const Request *request = request_create(req_msg, sizeof(req_msg));
     print_formatted_request_line(request);
 
-    response = response_create();
+    Response *response = response_create();
     if (route_request(routes, request, response) != 0) {
         char *not_found_response = "HTTP/1.1 404 Not Found\r\n\r\n";
         ssize_t response_bytes_sent = send(request_socketfd, not_found_response, strlen(not_found_response), 0);

@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include "../route.h"
 
-bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory, Response *response);
+bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory);
 
 #endif // HTTP_H

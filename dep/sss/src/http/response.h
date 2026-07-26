@@ -4,6 +4,8 @@
 #include "request.h"
 
 typedef struct {
+    string raw;
+
     HttpVersion protocol;
     HttpMethod status_code;
     string reason_phrase;
