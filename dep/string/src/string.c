@@ -45,13 +45,23 @@ char *string_to_cstring(string str)
     return result;
 }
 
-string_array string_split(string str, const char *delimiter)
+string_array string_array_create(size_t count)
 {
     string_array result = {
         .items = NULL,
         .count = 0,
     };
 
+    if (count > 0) {
+        result.items = malloc(sizeof(string) * count);
+        result.capacity = count;
+    }
+
+    return result;
+}
+
+string_array string_split(string str, const char *delimiter)
+{
     size_t delimiter_len = strlen(delimiter);
 
     bool delimeter_matches;
@@ -70,8 +80,7 @@ string_array string_split(string str, const char *delimiter)
         }
     }
 
-    result.count = delimiter_count + 1;
-    result.items = malloc(sizeof(str) * result.count);
+    string_array result = string_array_create(delimiter_count + 1);
 
     size_t current_string_start = 0;
     size_t current_string_len = 0;

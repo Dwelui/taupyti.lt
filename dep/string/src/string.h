@@ -13,6 +13,7 @@ typedef struct {
 typedef struct {
     string *items;
     size_t count;
+    size_t capacity;
 } string_array;
 
 string string_empty();
@@ -20,6 +21,7 @@ string string_from_data(char* data, size_t count);
 string string_from_cstring(char *data);
 char *string_to_cstring(string str);
 
+string_array string_array_create(size_t count);
 string_array string_split(string str, const char *delimiter);
 void string_array_free(string_array array);
 
