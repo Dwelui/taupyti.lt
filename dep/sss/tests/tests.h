@@ -13,6 +13,8 @@ void test_request_parse_method(TestCaseOutput *output);
 void test_request_parse_path(TestCaseOutput *output);
 void test_request_parse_path_2(TestCaseOutput *output);
 
+void test_response_simple_ok_is_valid(TestCaseOutput *output);
+
 // ------------------------- INTEGRATION -------------------------
 
 void test_request_get_variable_from_body(TestCaseOutput *output);

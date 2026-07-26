@@ -11,6 +11,8 @@ TestCase unitTests[] = {
     TEST_CASE_REGISTER(test_request_parse_method),
     TEST_CASE_REGISTER(test_request_parse_path),
     TEST_CASE_REGISTER(test_request_parse_path_2),
+
+    TEST_CASE_REGISTER(test_response_simple_ok_is_valid),
 };
 
 TestCase integrationTests[] = {

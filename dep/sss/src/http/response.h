@@ -14,5 +14,6 @@ typedef struct {
 } Response;
 
 Response *response_create();
+void response_free(Response *res);
 
 #endif // RESPONSE_H

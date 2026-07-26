@@ -8,3 +8,8 @@ Response *response_create()
 
     return response;
 }
+
+void response_free(Response *res)
+{
+    free(res);
+}
