@@ -11,13 +11,17 @@
 
 void print_formatted_request_line(const Request *req)
 {
+    char *http_version = string_to_cstring(http_version_to_string(req->version));
+
     printf(
         "[%s] %s %s %s\n",
         "2026-06-15 18:54:35",
         request_method_to_string(req->method),
         string_to_cstring(req->url),
-        http_version_to_string(req->version)
+        http_version
     );
+
+    free(http_version);
 }
 
 bool http_handle(int request_socketfd, const Routes *routes, const char *templates_directory)

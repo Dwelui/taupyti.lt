@@ -41,6 +41,6 @@ HttpMethod request_string_to_method(string method);
 char *request_method_to_string(HttpMethod method);
 
 HttpVersion http_version_from_string(string version);
-char *http_version_to_string(HttpVersion version);
+string http_version_to_string(HttpVersion version);
 
 #endif // REQUEST_H

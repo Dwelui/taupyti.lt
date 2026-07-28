@@ -159,11 +159,11 @@ HttpVersion http_version_from_string(string version)
     return result;
 }
 
-char *http_version_to_string(HttpVersion version)
+string http_version_to_string(HttpVersion version)
 {
     switch (version) {
         case HTTP_VERSION_1_1:
-            return "HTTP/1.1";
+            return string_from_cstring("HTTP/1.1");
         default:
             assert(false);
     }
