@@ -28,8 +28,7 @@ string response_to_string(const Response *res)
     string status_code = string_from_int(res->status_code);
     string_array_push(&status_line, status_code);
 
-    string reason_phrase = response_reason_phrase_to_string(res->reason_phrase);
-    string_array_push(&status_line, reason_phrase);
+    string_array_push(&status_line, res->reason_phrase);
 
     string_array_push(&status_line, string_empty()); // For additional \r\n.
     string result = string_join(status_line, "\r\n");
