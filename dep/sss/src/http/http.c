@@ -16,7 +16,7 @@ void print_formatted_request_line(const Request *req)
         "2026-06-15 18:54:35",
         request_method_to_string(req->method),
         string_to_cstring(req->url),
-        request_version_to_string(req->version)
+        http_version_to_string(req->version)
     );
 }
 

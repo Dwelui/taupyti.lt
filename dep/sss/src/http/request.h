@@ -40,7 +40,7 @@ variable *request_body_get(const Request *req, const char *name);
 HttpMethod request_string_to_method(string method);
 char *request_method_to_string(HttpMethod method);
 
-HttpVersion request_string_to_version(string version);
-char *request_version_to_string(HttpVersion version);
+HttpVersion http_version_from_string(string version);
+char *http_version_to_string(HttpVersion version);
 
 #endif // REQUEST_H

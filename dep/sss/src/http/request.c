@@ -27,7 +27,7 @@ Request *request_create(char *req_buf, size_t req_len)
 
     request->method = request_string_to_method(request_line_components.items[0]);
     request->url = request_line_components.items[1];
-    request->version = request_string_to_version(request_line_components.items[2]);
+    request->version = http_version_from_string(request_line_components.items[2]);
     string_array_free(request_line_components);
 
     string_array path_and_query = string_split(request->url, "?");
@@ -147,7 +147,7 @@ char *request_method_to_string(HttpMethod method)
     }
 }
 
-HttpVersion request_string_to_version(string version)
+HttpVersion http_version_from_string(string version)
 {
     HttpVersion result;
     if (string_is_equal_cstring(version, "HTTP/1.1")) {
@@ -159,7 +159,7 @@ HttpVersion request_string_to_version(string version)
     return result;
 }
 
-char *request_version_to_string(HttpVersion version)
+char *http_version_to_string(HttpVersion version)
 {
     switch (version) {
         case HTTP_VERSION_1_1:
