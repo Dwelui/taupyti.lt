@@ -1,6 +1,7 @@
 #include "response.h"
 #include "request.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 Response *response_create()
@@ -20,7 +21,7 @@ void response_free(Response *res)
 
 string response_to_string(const Response *res)
 {
-    string_array status_line = string_array_create(4);
+    string_array status_line = string_array_create(3);
 
     string protocol_version = http_version_to_string(res->protocol);
     string_array_push(&status_line, protocol_version);
@@ -30,12 +31,17 @@ string response_to_string(const Response *res)
 
     string_array_push(&status_line, res->reason_phrase);
 
-    // For additional \r\n.
-    string_array_push(&status_line, string_empty());
-    string result = string_join(status_line, "\r\n");
-
+    string status_line_string = string_join(status_line, " ");
     string_array_free(status_line);
     string_free(&status_code);
 
-    return string_from_cstring("HTTP/1.1 200 OK\r\n\r\n");
+    // TODO: refactor when string_append is implemented
+    string_array result = string_array_create(2);
+    string_array_push(&result, status_line_string);
+    string_array_push(&result, string_empty());
+    string result_string = string_join(result, "\r\n\r\n");
+    string_free(&status_line_string);
+    string_array_free(result);
+
+    return result_string;
 }
