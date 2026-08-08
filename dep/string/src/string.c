@@ -58,6 +58,10 @@ string string_from_int(int data)
 
 void string_free(string *str)
 {
+    if (str->count < 1) {
+        return;
+    }
+
     free(str->data);
 }
 
@@ -174,7 +178,6 @@ string string_join(string_array str_array, const char *delimiter)
         .data = malloc(sizeof(char) * result_count),
         .count = result_count,
     };
-
 
     size_t result_data_position = 0;
     for (size_t i = 0; i < str_array.count; i++) {

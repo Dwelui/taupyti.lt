@@ -276,6 +276,18 @@ void test_string_join(TestCaseOutput *output)
     string_array_free(array);
 }
 
+void test_string_join_empty_array(TestCaseOutput *output)
+{
+    string_array array = string_array_create(0);
+
+    string actual = string_join(array, ".");
+
+    test_cstring_is_equal_to_string(output, "", actual);
+
+    string_free(&actual);
+    string_array_free(array);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -300,6 +312,7 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_trim_no_trim),
     TEST_CASE_REGISTER(test_string_from_int),
     TEST_CASE_REGISTER(test_string_join),
+    TEST_CASE_REGISTER(test_string_join_empty_array),
 };
 
 
