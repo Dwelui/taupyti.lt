@@ -54,5 +54,7 @@ tests: build/tests.o build/test_request.o build/test_response.o build/test_reque
 	@gcc $(CFLAGS) $^ -o build/tests
 
 test: tests
+	clear
+	make clear
 	@printf "\n\n\n"
 	@./build/tests
