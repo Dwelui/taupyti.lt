@@ -53,8 +53,9 @@ build/tests.o: tests/tests.c | build_dir
 tests: build/tests.o build/test_request.o build/test_response.o build/test_request_variable.o build/libsss.a build/libtest.a build/libstring.a
 	@gcc $(CFLAGS) $^ -o build/tests
 
-test: tests
+test:
 	clear
-	make clear
+	@make clear
+	@make tests
 	@printf "\n\n\n"
 	@./build/tests
