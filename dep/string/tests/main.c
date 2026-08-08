@@ -259,6 +259,23 @@ void test_string_from_int(TestCaseOutput *output)
     string_free(&actual);
 }
 
+void test_string_join(TestCaseOutput *output)
+{
+    string_array array = string_array_create(5);
+    string_array_push(&array, string_from_cstring("H"));
+    string_array_push(&array, string_from_cstring("E"));
+    string_array_push(&array, string_from_cstring("L"));
+    string_array_push(&array, string_from_cstring("L"));
+    string_array_push(&array, string_from_cstring("O"));
+
+    string actual = string_join(array, ".");
+
+    test_cstring_is_equal_to_string(output, "H.E.L.L.O", actual);
+
+    string_free(&actual);
+    string_array_free(array);
+}
+
 TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_from_cstring_correct_count),
     TEST_CASE_REGISTER(test_string_from_cstring_data_is_same_as_original),
@@ -282,6 +299,7 @@ TestCase unit_tests[] = {
     TEST_CASE_REGISTER(test_string_trim_with_all_white_space_from_data),
     TEST_CASE_REGISTER(test_string_trim_no_trim),
     TEST_CASE_REGISTER(test_string_from_int),
+    TEST_CASE_REGISTER(test_string_join),
 };
 
 

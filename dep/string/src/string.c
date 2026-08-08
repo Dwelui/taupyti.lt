@@ -156,6 +156,47 @@ string_array string_split(string str, const char *delimiter)
     return result;
 }
 
+string string_join(string_array str_array, const char *delimiter)
+{
+    if (str_array.count < 1) {
+        return string_empty();
+    }
+
+    size_t result_count = 0;
+    for (size_t i = 0; i < str_array.count; i++) {
+        result_count += str_array.items[i].count;
+    }
+
+    const size_t delimiter_count = strlen(delimiter);
+    result_count += (str_array.count - 1) * delimiter_count;
+
+    string result = {
+        .data = malloc(sizeof(char) * result_count),
+        .count = result_count,
+    };
+
+
+    size_t result_data_position = 0;
+    for (size_t i = 0; i < str_array.count; i++) {
+        for (size_t y = 0; y < str_array.items[i].count; y++) {
+            result.data[result_data_position] = str_array.items[i].data[y];
+            result_data_position++;
+        }
+
+        // Skip appending delimiter to the very end of result
+        if (str_array.count - 1 == i) {
+            break;
+        }
+
+        for (size_t y = 0; y < delimiter_count; y++) {
+            result.data[result_data_position] = delimiter[y];
+            result_data_position++;
+        }
+    }
+
+    return result;
+}
+
 ssize_t string_starts_at(string str, string substr)
 {
     ssize_t position = -1;

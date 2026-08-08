@@ -22,7 +22,11 @@ build/tests.o: tests/main.c | build_dir
 tests: build/tests.o build/libstring.a build/libtest.a
 	@gcc  $(CFLAGS) $^ -o build/tests
 
-test: tests
+test:
+	clear
+	@make clear
+	@make tests
+	@printf "\n\n\n"
 	@./build/tests
 
 clear:

@@ -28,8 +28,9 @@ char *string_to_cstring(string str);
 string_array string_array_create(size_t capacity);
 void string_array_free(string_array array);
 
-string_array string_split(string str, const char *delimiter);
 void string_array_push(string_array *str_array, string str);
+string_array string_split(string str, const char *delimiter);
+string string_join(string_array str_array, const char *delimiter);
 
 ssize_t string_starts_at(string str, string substr);
 bool string_is_equal(string a, string b);
