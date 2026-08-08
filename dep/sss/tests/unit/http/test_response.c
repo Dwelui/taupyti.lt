@@ -8,12 +8,9 @@ void test_response_simple_ok_is_valid(TestCaseOutput *output)
 {
     Response *response = response_create();
 
-    string_array lines = string_split(response_to_string(response), "\r\n");
-    string statusLine = lines.items[0];
+    string response_string = response_to_string(response);
 
-    string_trim(&statusLine);
-    test_cstring_is_equal_to_string(output, "HTTP/1.1 200 OK", statusLine);
+    test_cstring_is_equal_to_string(output, "HTTP/1.1 200 OK\r\n\r\n", response_string);
 
     response_free(response);
-    string_array_free(lines);
 }

@@ -30,7 +30,8 @@ string response_to_string(const Response *res)
 
     string_array_push(&status_line, res->reason_phrase);
 
-    string_array_push(&status_line, string_empty()); // For additional \r\n.
+    // For additional \r\n.
+    string_array_push(&status_line, string_empty());
     string result = string_join(status_line, "\r\n");
 
     string_array_free(status_line);
